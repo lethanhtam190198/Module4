@@ -1,4 +1,4 @@
-package baitap.tudien.repository;
+package ex.translate.repository;
 
 import org.springframework.stereotype.Repository;
 

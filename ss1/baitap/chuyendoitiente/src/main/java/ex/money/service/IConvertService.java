@@ -1,4 +1,4 @@
-package baitap.chuyendoi.service;
+package ex.money.service;
 
 public interface IConvertService {
     double convert(double usd);

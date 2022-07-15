@@ -1,8 +1,8 @@
-package baitap.tudien.service.impl;
+package ex.translate.service.impl;
 
 
-import baitap.tudien.repository.IDistionaryRepository;
-import baitap.tudien.service.IDistionaryService;
+import ex.translate.repository.IDistionaryRepository;
+import ex.translate.service.IDistionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

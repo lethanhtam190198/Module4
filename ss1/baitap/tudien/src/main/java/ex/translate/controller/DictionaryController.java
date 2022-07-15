@@ -1,7 +1,7 @@
-package baitap.tudien.controller;
+package ex.translate.controller;
 
 
-import baitap.tudien.service.IDistionaryService;
+import ex.translate.service.IDistionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
