@@ -7,10 +7,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
-    <title>$Title$</title>
-  </head>
-  <body>
-  $END$
-  </body>
+<head>
+    <title>Title</title>
+</head>
+<body>
+<form action="/save" method="post">
+    <input type="number"  name="usd" required value="${usd}" placeholder="nhap gia tri">
+    <input type="submit" value="submit">
+    <h3>result : ${money}</h3>
+</form>
+
+</body>
 </html>
