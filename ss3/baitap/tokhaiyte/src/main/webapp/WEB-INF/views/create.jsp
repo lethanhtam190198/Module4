@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <title>Title</title>
@@ -17,16 +18,18 @@
 <body>
 
 
-<div class="container">
+<div class="container col-lg-7 align-content-center">
     <h3 class="col-lg-12 text-center align-content-center">TỜ KHAI Y TẾ</h3>
     <h5>
         ĐÂY LÀ TÀI LIỆU QUAN TRỌNG ANH/CHỊ SẼ GIÚP CƠ QUAN Y TẾ LIÊN LẠC KHI CẦN THIẾT ĐỂ PHÒNG CHỐNG DỊCH BỆNH TRUYỀN
         NHIỄM
     </h5>
     <span class="text-danger"> Khuyến cáo : Khai báo thông tin sai là vi phạm pháp luật Việt Nam và có thể bị xử lý hình sự
-</span>
+    </span>
+
     <form:form action="/create-medical" modelAttribute="medical">
         <table class="table-primary col-lg-12 row-bli">
+
             <tr class="row col-lg-12">
                 <td class="row col-lg-12"><label>Id <span class="text-danger"> (*)</span></label></td>
             </tr>
@@ -88,13 +91,7 @@
                 <td class="row col-lg-6"><form:input path="seat"/></td>
             </tr>
             <tr>
-                <td class="">Ngày khởi hành <span class="text-danger">(*)</span></td>
-                <td>Ngày kết thúc <span class="text-danger">(*)</span></td>
-            </tr>
-
-            <tr>
-
-                <td>
+                <td class="">Ngày khởi hành <span class="text-danger">(*)</span>
                     <form:select path="inputDay">
                         <form:options items="${inputDay}"></form:options>
                     </form:select>
@@ -108,7 +105,7 @@
                     </form:select>
                 </td>
 
-                <td>
+                <td>Ngày kết thúc <span class="text-danger">(*)</span>
                     <form:select path="outDay">
                         <form:options items="${outDay}"></form:options>
                     </form:select>
@@ -121,8 +118,8 @@
                         <form:options items="${outYear}"></form:options>
                     </form:select>
                 </td>
-
             </tr>
+
 
             <tr>
                 <td> trong vòng 14 ngày qua , Anh/chị có đi đến tỉnh thành phố nào? <span
@@ -136,7 +133,7 @@
 
             <tr>
                 <td>
-                    <button type="submit"  value="/create-info">Đăng kí</button>
+                    <button type="submit" value="/create-info">Đăng kí</button>
                 </td>
             </tr>
         </table>

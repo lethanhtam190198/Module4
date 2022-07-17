@@ -19,7 +19,7 @@ public class MedicalController {
     @Autowired
     private IMedicalService medicalService;
 
-    @GetMapping("list")
+    @GetMapping({"list",""})
     public String getAll(Model model) {
         List<Medical> medicalList = medicalService.getAll();
         model.addAttribute("medicalList", medicalList);
@@ -43,9 +43,9 @@ public class MedicalController {
     }
 
     @PostMapping    ("/create-medical")
-    public String create(@ModelAttribute("infoForm") Medical medical, RedirectAttributes redirectAttributes) {
+    public String create(@ModelAttribute("medical") Medical medical, RedirectAttributes redirectAttributes) {
         medicalService.create(medical);
-        redirectAttributes.addFlashAttribute("message", "Create Success");
+        redirectAttributes.addFlashAttribute("message", "Create Success Congratulation");
         return "redirect:/list";
     }
 
@@ -70,7 +70,7 @@ public class MedicalController {
     public String update(@ModelAttribute Medical medical,Model model, RedirectAttributes redirectAttributes) {
         medicalService.update(medical);
         model.addAttribute("medicalList", medicalService.getAll());
-        redirectAttributes.addFlashAttribute("note", "Update Congratulation");
+        redirectAttributes.addFlashAttribute("note", "Successful Update Congratulation");
         return "redirect:/list";
     }
 
