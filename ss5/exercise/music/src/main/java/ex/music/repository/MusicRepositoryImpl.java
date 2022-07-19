@@ -44,9 +44,3 @@ public class MusicRepositoryImpl implements IMusicRepository {
         return entityManager.find(Music.class,id);
     }
 }
-
-//        for (int i=0 ;i<productList.size();i++) {
-//        if (productList.get(i).getId() == id) {
-//        productList.remove(productList.get(i));
-//        }
-//        }

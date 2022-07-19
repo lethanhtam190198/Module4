@@ -44,7 +44,6 @@ public class MusicController {
 
     @PostMapping("/delete")
     public String delete(@RequestParam int id) {
-        Music music = musicService.findById(id);
         musicService.remove(id);
         return "redirect:list";
     }
