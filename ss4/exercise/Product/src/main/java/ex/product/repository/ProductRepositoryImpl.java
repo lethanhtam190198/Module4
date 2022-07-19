@@ -29,12 +29,13 @@ public class ProductRepositoryImpl implements IProductRepository {
 
     @Override
     public Product findById(int id) {
+        Product product = null;
         for (Product item : productList) {
             if (item.getId() == id) {
-                return item;
+                product = item;
             }
         }
-        return null;
+        return product;
     }
 
     @Override
@@ -51,7 +52,11 @@ public class ProductRepositoryImpl implements IProductRepository {
 
     @Override
     public void remove(int id) {
-        productList.remove(id);
+        for (int i=0 ;i<productList.size();i++) {
+            if (productList.get(i).getId() == id) {
+                productList.remove(productList.get(i));
+            }
+        }
     }
 
     @Override

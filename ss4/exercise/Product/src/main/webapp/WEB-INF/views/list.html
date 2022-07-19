@@ -23,7 +23,7 @@
     </form>
 </div>
 
-<table id="product">
+<table id="product" th:unless="${product.isEmpty()}">
     <thead>
     <tr>
         <th>ID</th>
