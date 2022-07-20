@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+</head>
+<body>
+<h3>Edit Player</h3>
+<p>
+    <a th:href="@{/list}">
+        Back to Blog list
+    </a>
+</p>
+<div id="form">
+    <form action="#" th:action="@{/edit}" th:object="${blog}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>Name</label>
+            <input required type="text" th:field="*{nameBlog}"/>
+        </div>
+        <div>
+            <label>Detail</label>
+            <input required type="text" th:field="*{rentBlog}"/>
+        </div>
+        <div>
+            <label>Rent</label>
+            <input required type="text" th:field="*{detailBlog}"/>
+        </div>
+        <input type="submit" value="edit"/>
+    </form>
+</div>
+<footer th:replace="/layout :: footer">
+</footer>
+</body>
+</html>
