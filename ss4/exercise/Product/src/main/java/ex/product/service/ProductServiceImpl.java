@@ -16,7 +16,7 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public List<Product> findAll() {
-        return productRepository.getData();
+        return productRepository.findAll();
     }
 
     @Override
@@ -30,8 +30,8 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public void update(int id, Product product) {
-        productRepository.update(id, product);
+    public void update(Product product) {
+        productRepository.update(product);
     }
 
     @Override
@@ -41,6 +41,6 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public List<Product> findByName(String name) {
-        return productRepository.findByName(name);
+        return productRepository.findByName("%"+name+"%");
     }
 }

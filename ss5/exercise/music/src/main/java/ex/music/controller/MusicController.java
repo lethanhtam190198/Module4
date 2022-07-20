@@ -41,7 +41,7 @@ public class MusicController {
     }
 
     @PostMapping("/edit")
-    public String update(@ModelAttribute("music") Music music, Model model) {
+    public String update(@ModelAttribute("music") Music music) {
         musicService.update(music);
         return "redirect:list";
     }
