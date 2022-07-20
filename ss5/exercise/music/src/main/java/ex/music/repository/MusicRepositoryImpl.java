@@ -1,7 +1,6 @@
 package ex.music.repository;
 
 import ex.music.model.Music;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -31,16 +30,18 @@ public class MusicRepositoryImpl implements IMusicRepository {
 
     @Override
     public void remove(int id) {
-        entityManager.remove(id);
+        Music music = findById(id);
+        entityManager.remove(music);
     }
 
     @Override
-    public void update( Music music) {
+    public void update(Music music) {
         entityManager.merge(music);
     }
 
     @Override
     public Music findById(int id) {
-        return entityManager.find(Music.class,id);
+        return entityManager.createQuery("select m from music m where m.id=:id", Music.class).
+                setParameter("id", id).getSingleResult();
     }
 }
