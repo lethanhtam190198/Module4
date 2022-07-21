@@ -1,8 +1,13 @@
 package com.example.blog.controller;
 
 import com.example.blog.model.Blog;
+import com.example.blog.model.Category;
 import com.example.blog.service.IBlogService;
+import com.example.blog.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,19 +15,25 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class BlogController {
     @Autowired
     IBlogService blogService;
 
+    ICategoryService categoryService;
+
     @GetMapping({"", "list"})
-    public String list(Model model) {
-        model.addAttribute("blogList", blogService.findAll());
+    public String list(@PageableDefault(value = 4 , sort = "dateCommit", direction = Sort.Direction.ASC) Pageable pageable, Model model) {
+        model.addAttribute("blogList", blogService.findAll(pageable));
+//        model.addAttribute("categoryList",categoryService.findAll());
         return "list";
     }
 
     @GetMapping("/create")
     public String showCreate(Model model) {
+//       model.addAttribute("categoryList",categoryService.findAll());
         model.addAttribute("blogList", new Blog());
         return "create";
     }
@@ -57,6 +68,10 @@ public class BlogController {
         blogService.remove(id);
         return "redirect:list";
     }
-
+    @GetMapping("/search")
+    public String search(@RequestParam("nameBlog") String nameBlog, Model model) {
+        model.addAttribute("blogList", blogService.findByName(nameBlog));
+        return "list";
+    }
 
 }

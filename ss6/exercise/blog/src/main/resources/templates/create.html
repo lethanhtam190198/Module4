@@ -5,7 +5,7 @@
 <h3>Add product</h3>
 <p>
     <a th:href="@{/product}">
-        Back to product list
+        Back to blog list
     </a>
 </p>
 <div id="form">
@@ -20,8 +20,19 @@
             <input type="email" th:field="*{rentBlog}"/>
         </div>
         <div>
+            <label>Category</label>
+            <!--            <input type="text" th:field="*{type}" pattern="[0-9]?"/>-->
+            <select th:field="*{category}">
+                <option th:each=" item : ${categoryList}" th:value="${item.idCategory}" th:text = "${item.categoryName()}"> </option>
+            </select>
+        </div>
+        <div>
             <label>Chi Tiết</label>
             <input type="text" th:field="*{detailBlog}"/>
+        </div>
+        <div>
+            <label>Date</label>
+            <input type="date" th:field="*{dateCommit}"/>
         </div>
         <input type="submit" value="Save"/>
     </form>

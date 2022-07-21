@@ -1,9 +1,7 @@
 package com.example.blog.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Blog {
@@ -12,7 +10,21 @@ public class Blog {
     private int id;
     private String nameBlog;
     private String rentBlog;
-    private  String detailBlog;
+    private String detailBlog;
+    @Column(columnDefinition = "DATE")
+    private String dateCommit;
+
+    @ManyToOne
+    @JoinColumn(name = "idCategory")
+    private  Category category;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public Blog() {
     }
@@ -22,6 +34,14 @@ public class Blog {
         this.nameBlog = nameBlog;
         this.rentBlog = rentBlog;
         this.detailBlog = detailBlog;
+    }
+
+    public Blog(int id, String nameBlog, String rentBlog, String detailBlog, String dateCommit) {
+        this.id = id;
+        this.nameBlog = nameBlog;
+        this.rentBlog = rentBlog;
+        this.detailBlog = detailBlog;
+        this.dateCommit = dateCommit;
     }
 
     public int getId() {
@@ -54,5 +74,13 @@ public class Blog {
 
     public void setDetailBlog(String detailBlog) {
         this.detailBlog = detailBlog;
+    }
+
+    public String getDateCommit() {
+        return dateCommit;
+    }
+
+    public void setDateCommit(String dateCommit) {
+        this.dateCommit = dateCommit;
     }
 }

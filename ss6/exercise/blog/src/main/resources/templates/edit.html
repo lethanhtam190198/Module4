@@ -3,7 +3,7 @@
 <head th:replace="/layout :: head">
 </head>
 <body>
-<h3>Edit Player</h3>
+<h3>Edit Blog</h3>
 <p>
     <a th:href="@{/list}">
         Back to Blog list
@@ -23,6 +23,11 @@
         <div>
             <label>Rent</label>
             <input required type="text" th:field="*{detailBlog}"/>
+        </div>
+
+        <div>
+            <label>Date</label>
+            <input required type="date" th:field="*{dateCommit}"/>
         </div>
         <input type="submit" value="edit"/>
     </form>
