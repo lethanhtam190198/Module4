@@ -13,7 +13,8 @@
     </a>
 </p>
 <table class="table table-striped">
-    <tr><th>ID</th>
+    <tr>
+        <th>ID</th>
         <th>Name Blog</th>
         <th>Kiểu Blog</th>
         <th>Chi tiết</th>
@@ -28,7 +29,7 @@
         <td><a th:href="@{/view(id=${item.id})}">view</a></td>
         <td><a th:href="@{/update(id=${item.id})}">edit</a></td>
 
-        <td >
+        <td>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
                     onclick="infoDelete(this.value)" th:value="${item.id}+','+${item.nameBlog}">Delete
             </button>
@@ -37,7 +38,7 @@
 </table>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form  method="post" th:action="@{delete}">
+        <form method="post" th:action="@{delete}">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Xóa Customer</h5>
