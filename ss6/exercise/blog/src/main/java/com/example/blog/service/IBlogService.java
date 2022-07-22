@@ -18,5 +18,5 @@ public interface IBlogService {
 
     Blog findById(Integer id);
 
-    List<Blog> findByName(String nameBlog);
+    Page<Blog> findByName(String nameBlog,Pageable pageable);
 }

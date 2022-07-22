@@ -33,7 +33,7 @@ public class BlogService implements IBlogService {
 
     @Override
     public void update(Blog blog) {
-        blogRepository.update(blog.getDetailBlog(), blog.getNameBlog(), blog.getRentBlog(),blog.getDateCommit(), blog.getId());
+        blogRepository.update(blog.getDetailBlog(), blog.getNameBlog(), blog.getRentBlog(),blog.getDateCommit(),blog.getCategory().getIdCategory(), blog.getId());
     }
 
     @Override
@@ -42,8 +42,8 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public List<Blog> findByName(String nameBlog) {
-        return blogRepository.findByName("%"+nameBlog+"%");
+    public Page<Blog> findByName(String nameBlog,Pageable pageable) {
+        return blogRepository.findByName("%"+nameBlog+"%", pageable);
     }
 
 

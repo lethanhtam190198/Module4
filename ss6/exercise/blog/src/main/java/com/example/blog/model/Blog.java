@@ -15,11 +15,20 @@ public class Blog {
     private String dateCommit;
 
     @ManyToOne
-    @JoinColumn(name = "idCategory")
+    @JoinColumn(name = "idCategory",referencedColumnName ="idCategory")
     private  Category category;
 
     public Category getCategory() {
         return category;
+    }
+
+    public Blog(int id, String nameBlog, String rentBlog, String detailBlog, String dateCommit, Category category) {
+        this.id = id;
+        this.nameBlog = nameBlog;
+        this.rentBlog = rentBlog;
+        this.detailBlog = detailBlog;
+        this.dateCommit = dateCommit;
+        this.category = category;
     }
 
     public void setCategory(Category category) {

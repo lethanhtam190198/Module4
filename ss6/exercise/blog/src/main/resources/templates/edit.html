@@ -20,6 +20,14 @@
             <label>Detail</label>
             <input required type="text" th:field="*{rentBlog}"/>
         </div>
+
+        <div>
+            <label>Category</label><br>
+            <select th:field="*{category}">
+                <option th:each=" item : ${categoryList}" th:value="${item.idCategory}" th:text = "${item.categoryName}"> </option>
+            </select>
+        </div>
+
         <div>
             <label>Rent</label>
             <input required type="text" th:field="*{detailBlog}"/>

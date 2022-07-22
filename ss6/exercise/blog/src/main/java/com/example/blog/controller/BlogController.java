@@ -21,19 +21,18 @@ import java.util.List;
 public class BlogController {
     @Autowired
     IBlogService blogService;
-
+    @Autowired
     ICategoryService categoryService;
 
     @GetMapping({"", "list"})
-    public String list(@PageableDefault(value = 4 , sort = "dateCommit", direction = Sort.Direction.ASC) Pageable pageable, Model model) {
+    public String list(@PageableDefault(value = 4, sort = "dateCommit", direction = Sort.Direction.ASC) Pageable pageable, Model model) {
         model.addAttribute("blogList", blogService.findAll(pageable));
-//        model.addAttribute("categoryList",categoryService.findAll());
         return "list";
     }
 
     @GetMapping("/create")
     public String showCreate(Model model) {
-//       model.addAttribute("categoryList",categoryService.findAll());
+        model.addAttribute("categoryList", categoryService.findAll());
         model.addAttribute("blogList", new Blog());
         return "create";
     }
@@ -52,6 +51,7 @@ public class BlogController {
 
     @GetMapping("/update")
     public String showFormUpdate(@RequestParam int id, Model model) {
+        model.addAttribute("categoryList", categoryService.findAll());
         Blog blog = blogService.findById(id);
         model.addAttribute("blog", blog);
         return "/edit";
@@ -68,9 +68,11 @@ public class BlogController {
         blogService.remove(id);
         return "redirect:list";
     }
+
     @GetMapping("/search")
-    public String search(@RequestParam("nameBlog") String nameBlog, Model model) {
-        model.addAttribute("blogList", blogService.findByName(nameBlog));
+    public String search(@RequestParam("nameBlog") String nameBlog, Model model,@PageableDefault(value = 3) Pageable pageable) {
+        model.addAttribute("blogList", blogService.findByName(nameBlog, pageable));
+        model.addAttribute("nameBlog", nameBlog);
         return "list";
     }
 

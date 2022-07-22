@@ -11,7 +11,6 @@ public class Category {
     private String categoryName;
 
 
-
     @OneToMany(mappedBy = "category")
     private Set<Blog> blogs;
 
@@ -24,6 +23,12 @@ public class Category {
     }
 
     public Category() {
+    }
+
+    public Category(int idCategory, String categoryName, Set<Blog> blogs) {
+        this.idCategory = idCategory;
+        this.categoryName = categoryName;
+        this.blogs = blogs;
     }
 
     public Category(int idCategory, String categoryName) {
