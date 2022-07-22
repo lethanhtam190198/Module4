@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 @Transactional
 public interface IProductRepository  extends JpaRepository<Product,Integer> {
     @Modifying
-    @Query(value = "update blog_spring set price = :price, amount=:amount, name=:name  where id = :id", nativeQuery = true)
+    @Query(value = "update Product set price = :price, amount=:amount, name=:name  where id = :id", nativeQuery = true)
     void update( @Param("price") double price, @Param("amount") double amount, @Param("name") String name,@Param("id")int id);
 
 
