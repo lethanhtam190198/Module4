@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous">
+</head>
+<body>
+<center>
+  <h3>Account Management</h3>
+  <p>
+    <a th:href="@{/create}">
+      Create new account
+    </a>
+  </p>
+  <div class="notify">
+    <!--/*@thymesVar id="success" type=""*/-->
+    <div th:if="${success}">
+      <span th:text="${success}"></span>
+    </div>
+  </div>
+</center>
+<div>
+  <form th:action="@{/account/search}" >
+    <input type="text" name="name" placeholder="Search Content" th:text="${name}">
+    <button type="submit" value="search">Search</button>
+  </form>
+</div>
+
+<table id="account" class="table table-success table-striped">
+  <thead>
+  <tr class="table-info">
+    <th>Id</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Age</th>
+    <th>Phone Number</th>
+    <th>Email</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="row : ${userList}">
+    <td th:text="${row.id}"></td>
+    <td th:text="${row.firstName}"></td>
+    <td th:text="${row.lastName}"></td>
+    <td th:text="${row.age}"></td>
+    <td th:text="${row.phoneNumber}"></td>
+    <td th:text="${row.email}"></td>
+    <td><a th:href="@{/account/{id}/edit(id=${row.id})}">Edit</a></td>
+
+    <td>
+      <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+              th:data-bs-target="'#a' + ${row.id}">
+        Delete
+      </button>
+
+      <div class="modal fade" th:id="a + ${row.id}" data-bs-backdrop="static" data-bs-keyboard="false"
+           tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Do you want delete account  :
+              <span class="text-info" th:text="${row.firstName} + ${row.lastName}"></span> with email :
+              <span class="text-info" th:text="${row.email}"></span>
+            </div>
+            <!--                        <div class="modal-footer">-->
+            <a th:href="@{/account/delete(id=${row.id})}" class="btn btn-outline-success">Delete</a>
+            <button type="button" class="btn btn-secondary center-pill" data-bs-dismiss="modal">Close</button>
+            <!--                        </div>-->
+          </div>
+        </div>
+      </div>
+    </td>
+    <!--        <td ><a th:href="@{/account/{id}/view(id=${row.id})}">View</a></td>-->
+  </tr>
+
+  <!--    <div>-->
+  <!--        <a th:href="@{'/account/search'(page=${accountList.number - 1},name=${search})}" th:if="${accountList.hasPrevious()}">Previous</a>-->
+  <!--        <span th:text="${accountList.number + 1}"></span>/<span th:text="${accountList.totalPages}"></span>-->
+  <!--        <a th:href="@{'/account/search'(page=${accountList.number + 1},name=${search})}" th:if="${accountList.hasNext()}">Next</a>-->
+  <!--    </div>-->
+  </tbody>
+</table>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</html>
