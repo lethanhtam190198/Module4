@@ -4,12 +4,12 @@
 <body>
 <h3>Add product</h3>
 <p>
-  <a th:href="@{/product}">
+  <a th:href="@{/}">
     Back to product list
   </a>
 </p>
 <div id="form">
-  <form th:action="@{/save}" th:object="${product}"
+  <form th:action="@{/save}" th:object="${productListDto}"
         method="POST" novalidate="novalidate">
 
     <input type="hidden" th:field="*{id}"/>
