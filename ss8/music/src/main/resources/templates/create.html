@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thêm mới bài hát</title>
+</head>
+<body>
+<form th:object="${create}" th:action="create" method="post">
+
+    Tên bài hát:
+    <input th:field="*{nameOfSong}"/><br>
+
+    Nghệ sĩ:
+    <input th:field="*{artistName}"/><br>
+
+    Thể loại:
+    <input th:field="*{category}"/><br>
+
+    Đường dẫn:
+    <input th:field="*{path}"/><br>
+
+    <button type="submit" value="save"> save</button>
+</form>
+</body>
+</html>
+
+</body>
+</html>

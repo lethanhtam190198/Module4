@@ -17,7 +17,7 @@ public class ProductDto {
     private double Price;
 
     @NotNull
-    @Min(value = 1)
+    @Min(value = 1, message = "sai")
     private int amount;
 
     public ProductDto() {

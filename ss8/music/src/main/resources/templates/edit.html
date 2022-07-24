@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:object="${musicList}" th:action="edit" method="post">
+
+  ID:
+  <input readonly th:field="*{id}"><br>
+
+  Tên bài hát:
+  <input th:field="*{nameOfSong}"/><br>
+
+  Nghệ sĩ:
+  <input th:field="*{artistName}"/><br>
+
+  Thể loại:
+  <input th:field="*{category}"/><br>
+
+  Đường dẫn:
+  <input th:field="*{path}"/><br>
+
+  <button type="submit" value="save"> save</button>
+</form>
+
+</body>
+</html>
