@@ -75,5 +75,4 @@ public class BlogController {
         model.addAttribute("nameBlog", nameBlog);
         return "list";
     }
-
 }

@@ -12,20 +12,32 @@
 </head>
 <body>
 <form th:object="${create}" th:action="create" method="post">
+    <div>
+        Tên bài hát:
+        <input th:field="*{nameOfSong}"><br>
+        <p th:if="${#fields.hasErrors('nameOfSong')}"
+           th:errors="*{nameOfSong}">
+    </div>
 
-    Tên bài hát:
-    <input th:field="*{nameOfSong}"/><br>
+    <div>
+        Nghệ sĩ:
+        <input th:field="*{artistName}"><br>
+        <p th:if="${#fields.hasErrors('artistName')}"
+           th:errors="*{artistName}">
+    </div>
 
-    Nghệ sĩ:
-    <input th:field="*{artistName}"/><br>
-
-    Thể loại:
-    <input th:field="*{category}"/><br>
-
+    <div>
+        Thể loại:
+        <input th:field="*{category}"><br>
+        <p th:if="${#fields.hasErrors('category')}"
+           th:errors="*{category}">
+    </div>
     Đường dẫn:
-    <input th:field="*{path}"/><br>
+    <input th:field="*{path}"><br>
 
-    <button type="submit" value="save"> save</button>
+    <div>
+        <button type="submit" value="save"> save</button>
+    </div>
 </form>
 </body>
 </html>

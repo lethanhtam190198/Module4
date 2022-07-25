@@ -1,4 +1,4 @@
-package ex.music.model;
+package com.example.music.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

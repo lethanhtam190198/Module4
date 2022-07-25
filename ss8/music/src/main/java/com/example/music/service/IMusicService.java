@@ -1,6 +1,7 @@
-package ex.music.service;
+package com.example.music.service;
 
-import ex.music.model.Music;
+
+import com.example.music.model.Music;
 
 import java.util.List;
 

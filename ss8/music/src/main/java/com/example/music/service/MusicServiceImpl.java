@@ -1,7 +1,9 @@
-package ex.music.service;
+package com.example.music.service;
 
-import ex.music.model.Music;
-import ex.music.repository.IMusicRepository;
+
+
+import com.example.music.model.Music;
+import com.example.music.repository.IMusicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,16 +27,16 @@ public class MusicServiceImpl implements IMusicService {
 
     @Override
     public void remove(int id) {
-        musicRepository.remove(id);
+        musicRepository.deleteById(id);
     }
 
     @Override
     public void update(Music music) {
-        musicRepository.update(music);
+        musicRepository.update(music.getArtistName(),music.getCategory(),music.getNameOfSong(),music.getPath(),music.getId());
     }
 
     @Override
     public Music findById(int id) {
-        return musicRepository.findById(id);
+        return musicRepository.findById(id).orElse(null);
     }
 }

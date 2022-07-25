@@ -1,17 +1,17 @@
-package ex.music.repository;
+package com.example.music.repository;
 
-import ex.music.model.Music;
 
-import java.util.List;
+import com.example.music.model.Music;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-public interface IMusicRepository {
-    List<Music> findAll();
+import javax.transaction.Transactional;
 
-    void save(Music music);
-
-    void remove(int id);
-
-    void update(Music music);
-
-    Music findById(int id);
+@Transactional
+public interface IMusicRepository extends JpaRepository<Music, Integer> {
+    @Modifying
+    @Query(value = "update music set artist_name = :artist_name, category=:category, name_of_song=:name_of_song , path=:path  where id = :id", nativeQuery = true)
+    void update(@Param("artist_name") String artist_name,@Param("category") String category,@Param("name_of_song") String name_of_song,@Param("path") String path, @Param("id")int id);
 }
