@@ -1,47 +1,36 @@
-package com.example.casestudy.model;
+package com.example.casestudy.dto;
 
-import javax.persistence.*;
+import com.example.casestudy.model.Division;
+import com.example.casestudy.model.EducationDegree;
+import com.example.casestudy.model.Position;
+import com.example.casestudy.model.User;
 
-@Entity(name = "employee")
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+import javax.validation.constraints.Pattern;
+
+
+public class EmployeeDto {
+
     private int employeeId;
-
+    @Pattern(regexp = "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒ\n" +
+            " ÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$", message = "Wrong format")
     private String employeeName;
-
     private String employeeDayOfBirth;
 
     private String employeeIdCard;
-
     private double employeeSalary;
-
+    @Pattern(regexp = "^[090|091|+84]{1}[0-9\\-\\+]{9,15}$")
     private String employeePhoneNumber;
-
     private String employeeEmail;
-
     private String employeeAddress;
-
-    @ManyToOne
-    @JoinColumn(name = "positionId",referencedColumnName = "positionId")
     private Position position;
-
-    @ManyToOne
-    @JoinColumn(name="educationDegreeId", referencedColumnName = "educationDegreeId")
-    private  EducationDegree educationDegree;
-
-    @ManyToOne
-    @JoinColumn(name="divisionId",referencedColumnName = "divisionId")
+    private EducationDegree educationDegree;
     private Division division;
-
-    @ManyToOne
-    @JoinColumn(name="userName",referencedColumnName = "userName")
     private User userName;
 
-    public Employee() {
+    public EmployeeDto() {
     }
 
-    public Employee(int employeeId, String employeeName, String employeeDayOfBirth, String employeeIdCard, double employeeSalary, String employeePhoneNumber, String employeeEmail, String employeeAddress, Position position, EducationDegree educationDegree, Division division, User userName) {
+    public EmployeeDto(int employeeId, String employeeName, String employeeDayOfBirth, String employeeIdCard, double employeeSalary, String employeePhoneNumber, String employeeEmail, String employeeAddress, Position position, EducationDegree educationDegree, Division division, User userName) {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.employeeDayOfBirth = employeeDayOfBirth;
