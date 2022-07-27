@@ -1,7 +1,5 @@
 package com.example.book.model;
 
-import javafx.beans.DefaultProperty;
-
 import javax.persistence.*;
 
 @Entity
@@ -12,8 +10,8 @@ public class User {
     private String name;
     private int code;
     @ManyToOne
-    
-    @JoinColumn(name = "bookId",referencedColumnName = "bookId")
+
+    @JoinColumn(name = "bookId", referencedColumnName = "bookId")
     private Book books;
 
     public User() {

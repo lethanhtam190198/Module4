@@ -1,0 +1,1 @@
+SELECT * FROM ss10_flowers.product;
