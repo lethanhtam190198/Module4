@@ -32,12 +32,12 @@
                    th:text="${'+'}">
                 </a>
             </td>
-            <td th:text="${product.getKey().price}"></td>
+            <td th:text="${#numbers.formatCurrency(product.getKey().price)}"></td>
         </tr>
         <tr>
             <td>Tổng:</td>
 
-            <td th:text="${cart.countTotalPayment()}"></td>
+            <td th:text="${#numbers.formatCurrency(cart.countTotalPayment())}"></td>
         </tr>
     </table>
 

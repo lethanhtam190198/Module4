@@ -50,7 +50,7 @@ public class Cart {
     }
 
 
-    public void removeProduct(Product product) throws Exception {
+    public void removeProduct(Product product)  {
         if (!checkItemInCart(product)) {
             products.put(product, 1);
         } else {
