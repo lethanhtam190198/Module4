@@ -72,14 +72,6 @@ public class BlogController {
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
 
-    @GetMapping("/type")
-    public ResponseEntity<List<Category>> typeList() {
-        List<Category> categoryList = categoryService.findAll();
-        if (categoryList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(categoryList, HttpStatus.OK);
-    }
 
     @GetMapping("/search")
     public ResponseEntity<Page<Blog>> getBlogList(@RequestParam String name, Pageable pageable) {
