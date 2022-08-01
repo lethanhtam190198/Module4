@@ -1,10 +1,10 @@
 package com.example.casestudy.controller;
 
 import com.example.casestudy.dto.EmployeeDto;
-import com.example.casestudy.model.Division;
-import com.example.casestudy.model.EducationDegree;
-import com.example.casestudy.model.Employee;
-import com.example.casestudy.model.Position;
+import com.example.casestudy.model.employee.Division;
+import com.example.casestudy.model.employee.EducationDegree;
+import com.example.casestudy.model.employee.Employee;
+import com.example.casestudy.model.employee.Position;
 import com.example.casestudy.service.IDivisionService;
 import com.example.casestudy.service.IEducationDegreeService;
 import com.example.casestudy.service.IEmployeeService;

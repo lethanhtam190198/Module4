@@ -1,6 +1,6 @@
 package com.example.casestudy.dto;
 
-import com.example.casestudy.model.CustomerType;
+import com.example.casestudy.model.customer.CustomerType;
 
 
 public class CustomerDto {

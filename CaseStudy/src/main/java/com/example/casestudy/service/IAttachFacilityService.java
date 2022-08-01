@@ -1,6 +1,6 @@
 package com.example.casestudy.service;
 
-import com.example.casestudy.model.AttachFacility;
+import com.example.casestudy.model.contract.AttachFacility;
 
 import java.util.List;
 

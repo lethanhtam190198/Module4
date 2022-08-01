@@ -1,6 +1,6 @@
 package com.example.casestudy.repository;
 
-import com.example.casestudy.model.AttachFacility;
+import com.example.casestudy.model.contract.AttachFacility;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;

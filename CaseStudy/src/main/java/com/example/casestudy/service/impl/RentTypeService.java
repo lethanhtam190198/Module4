@@ -1,6 +1,6 @@
 package com.example.casestudy.service.impl;
 
-import com.example.casestudy.model.RentType;
+import com.example.casestudy.model.facility.RentType;
 import com.example.casestudy.repository.IRentTypeRepository;
 import com.example.casestudy.service.IRentTypeService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.example.casestudy.service.impl;
 
-import com.example.casestudy.model.Division;
+import com.example.casestudy.model.employee.Division;
 import com.example.casestudy.repository.IDivisionRepository;
 import com.example.casestudy.service.IDivisionService;
 import org.springframework.beans.factory.annotation.Autowired;

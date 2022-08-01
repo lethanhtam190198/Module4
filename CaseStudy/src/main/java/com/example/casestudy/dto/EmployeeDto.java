@@ -1,9 +1,9 @@
 package com.example.casestudy.dto;
 
-import com.example.casestudy.model.Division;
-import com.example.casestudy.model.EducationDegree;
-import com.example.casestudy.model.Position;
-import com.example.casestudy.model.User;
+import com.example.casestudy.model.employee.Division;
+import com.example.casestudy.model.employee.EducationDegree;
+import com.example.casestudy.model.employee.Position;
+import com.example.casestudy.model.user.User;
 
 import javax.validation.constraints.Pattern;
 
