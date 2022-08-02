@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,53 +8,57 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-<div class="container">
-    <p>
-        <a th:href="@{/create}">
-            Add new Blog
-        </a>
-    </p>
-
-    <div>
+<div class="container" sec:authorize="isAuthenticated()">
+    <div sec:authorize="hasAnyRole('admin')">
+        <p>
+            <a th:href="@{/create}">
+                Add new Blog
+            </a>
+        </p>
+    </div>
+    <div sec:authorize="hasAnyRole('user')">
         <form th:action="@{/search}" method="get">
             <input type="text" name="nameBlog" placeholder="Search by name">
             <button type="submit" value="search">Search</button>
         </form>
     </div>
+    <div sec:authorize="hasAnyRole('user')">
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Name Blog</th>
+                <th>Kiểu Blog</th>
+                <td>Category</td>
+                <th>Date</th>
+                <th sec:authorize="hasAnyRole('admin')">View</th>
+                <td sec:authorize="hasAnyRole('admin')">Edit</td>
+                <td sec:authorize="hasAnyRole('admin')">Delete</td>
+            </tr>
 
-    <table class="table table-striped">
-        <tr>
-            <th>ID</th>
-            <th>Name Blog</th>
-            <th>Kiểu Blog</th>
-            <td>Category</td>
-            <th>Date</th>
-            <th>View</th>
-            <td>Edit</td>
-            <td>Delete</td>
-        </tr>
+            <tr th:each="item : ${blogList}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.nameBlog}"></td>
+                <td th:text="${item.rentBlog}"></td>
+                <td th:text="${item.category.categoryName}"></td>
+                <td th:text="${item.dateCommit}"></td>
+                <td><a sec:authorize="hasAnyRole('admin')" th:href="@{/view(id=${item.id})}">view</a></td>
+                <td><a  sec:authorize="hasAnyRole('admin')" th:href="@{/update(id=${item.id})}">edit</a></td>
 
-        <tr th:each="item : ${blogList}">
-            <td th:text="${item.id}"></td>
-            <td th:text="${item.nameBlog}"></td>
-            <td th:text="${item.rentBlog}"></td>
-            <td th:text="${item.category.categoryName}"></td>
-            <td th:text="${item.dateCommit}"></td>
-            <td><a th:href="@{/view(id=${item.id})}">view</a></td>
-            <td><a th:href="@{/update(id=${item.id})}">edit</a></td>
-
-            <td>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        onclick="infoDelete(this.value)" th:value="${item.id}+','+${item.nameBlog}">Delete
-                </button>
-            </td>
-        </tr>
-    </table>
-    <center>
-        <a th:href="@{'/search'(page=${blogList.number - 1},nameBlog = ${nameBlog})}" th:if="${blogList.hasPrevious()}">Previous</a>
-        <span th:text="${blogList.number + 1}"></span>/<span th:text="${blogList.totalPages}"></span>
-        <a th:href="@{'/search'(page=${blogList.number + 1},nameBlog = ${nameBlog})}" th:if="${blogList.hasNext()}">Next</a>
-    </center>
+                <td sec:authorize="hasAnyRole('admin')">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            onclick="infoDelete(this.value)" th:value="${item.id}+','+${item.nameBlog}">Delete
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <center>
+            <a th:href="@{'/search'(page=${blogList.number - 1},nameBlog = ${nameBlog})}"
+               th:if="${blogList.hasPrevious()}">Previous</a>
+            <span th:text="${blogList.number + 1}"></span>/<span th:text="${blogList.totalPages}"></span>
+            <a th:href="@{'/search'(page=${blogList.number + 1},nameBlog = ${nameBlog})}"
+               th:if="${blogList.hasNext()}">Next</a>
+        </center>
+    </div>
 </div>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

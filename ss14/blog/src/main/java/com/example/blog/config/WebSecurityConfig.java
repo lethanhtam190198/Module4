@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -18,7 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private MyUserDetailServiceImpl myUserDetailService;
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -29,12 +31,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .formLogin()
-                .defaultSuccessUrl("/list")
-                .permitAll().and()
+        http.csrf().disable().formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/").permitAll()
+                .and()
                 .authorizeRequests()
-                .anyRequest()
-                .authenticated();
+                .antMatchers("/login").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/**").hasAnyRole("admin")
+                .anyRequest().authenticated();
+
+        http.authorizeRequests().and().rememberMe()
+                .tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(30*24*60*60);
+    }
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        InMemoryTokenRepositoryImpl memoryTokenRepository = new InMemoryTokenRepositoryImpl();
+        return memoryTokenRepository;
     }
 }

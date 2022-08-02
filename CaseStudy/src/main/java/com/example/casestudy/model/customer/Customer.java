@@ -35,8 +35,12 @@ public class Customer {
         this.address = address;
     }
 
-    public int getId() {
+    public int getCustomerId() {
         return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public void setId(int customerId) {

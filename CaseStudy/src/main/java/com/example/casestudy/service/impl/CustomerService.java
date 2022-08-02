@@ -20,4 +20,31 @@ public class CustomerService implements ICustomerService {
     public List<Customer> findAll() {
         return customerRepository.findAll();
     }
+
+    @Override
+    public void save(Customer customer) {
+        customerRepository.save(customer);
+    }
+
+    @Override
+    public void remove(int id) {
+        customerRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        customerRepository.updateCustomer(customer.getCustomerType(),customer.getCustomerName(),customer.getDayOfBirth(),
+                customer.getGender(),customer.getCustomerIdCard(),customer.getPhoneNumber(),customer.getCustomerEmail(),
+                customer.getAddress(),customer.getCustomerId());
+    }
+
+    @Override
+    public Customer findById(int id) {
+        return customerRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Customer> searchByName(String name) {
+        return null;
+    }
 }

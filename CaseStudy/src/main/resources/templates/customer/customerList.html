@@ -173,14 +173,17 @@
             <tbody>
             <tr th:each="row : ${customerList}">
                 <td th:text="${row.customerId}"></td>
-                <td th:text="${row.customerType}"></td>
+                <td th:text="${row.customerType.getCustomerTypeName}"></td>
                 <td th:text="${row.customerName}"></td>
-                <td th:text="${row.customerBirth}"></td>
-                <td th:text="${row.customerGender}"></td>
+                <td th:text="${row.dayOfBirth}"></td>
+
+                <td th:if="${row.gender==1}" th:text="Male"></td>
+                <td th:if="${row.gender==0}" th:text="Female"></td>
+
                 <td th:text="${row.customerIdCard}"></td>
-                <td th:text="${row.customerPhoneNumber}"></td>
+                <td th:text="${row.phoneNumber}"></td>
                 <td th:text="${row.customerEmail}"></td>
-                <td th:text="${row.customerAddress}"></td>
+                <td th:text="${row.address}"></td>
                 <td><a th:href="@{/customer/{id}/edit(id=${row.customerId})}">Edit</a></td>
                 <td>
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
