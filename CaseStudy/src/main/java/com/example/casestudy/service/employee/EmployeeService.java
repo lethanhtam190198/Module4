@@ -1,8 +1,8 @@
 package com.example.casestudy.service.impl;
 
 import com.example.casestudy.model.employee.Employee;
-import com.example.casestudy.repository.IEmployeeRepository;
-import com.example.casestudy.service.IEmployeeService;
+import com.example.casestudy.repository.employee.IEmployeeRepository;
+import com.example.casestudy.service.employee.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

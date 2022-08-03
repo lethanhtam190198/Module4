@@ -1,8 +1,8 @@
 package com.example.casestudy.service.impl;
 
 import com.example.casestudy.model.employee.Division;
-import com.example.casestudy.repository.IDivisionRepository;
-import com.example.casestudy.service.IDivisionService;
+import com.example.casestudy.repository.employee.IDivisionRepository;
+import com.example.casestudy.service.employee.IDivisionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
