@@ -1,4 +1,10 @@
-package com.example.casestudy.service;
+package com.example.casestudy.service.facility;
+
+import com.example.casestudy.model.facility.Facility;
+import com.example.casestudy.model.facility.FacilityType;
+
+import java.util.List;
 
 public interface IFacilityTypeService {
+    List<FacilityType> findAll();
 }

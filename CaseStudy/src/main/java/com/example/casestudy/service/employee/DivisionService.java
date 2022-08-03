@@ -1,4 +1,4 @@
-package com.example.casestudy.service.impl;
+package com.example.casestudy.service.employee;
 
 import com.example.casestudy.model.employee.Division;
 import com.example.casestudy.repository.employee.IDivisionRepository;

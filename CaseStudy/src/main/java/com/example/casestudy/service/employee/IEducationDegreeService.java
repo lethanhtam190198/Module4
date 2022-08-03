@@ -1,4 +1,4 @@
-package com.example.casestudy.service;
+package com.example.casestudy.service.employee;
 
 import com.example.casestudy.model.employee.EducationDegree;
 

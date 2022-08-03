@@ -1,4 +1,4 @@
-package com.example.casestudy.service;
+package com.example.casestudy.service.user;
 
 public interface IUserService {
 }

@@ -1,8 +1,7 @@
-package com.example.casestudy.service.impl;
+package com.example.casestudy.service.contract;
 
 import com.example.casestudy.model.contract.Contract;
 import com.example.casestudy.repository.contract.IContractRepository;
-import com.example.casestudy.service.IContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

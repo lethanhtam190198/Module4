@@ -1,8 +1,7 @@
-package com.example.casestudy.service.impl;
+package com.example.casestudy.service.facility;
 
 import com.example.casestudy.model.facility.RentType;
 import com.example.casestudy.repository.facility.IRentTypeRepository;
-import com.example.casestudy.service.IRentTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

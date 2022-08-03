@@ -1,4 +1,4 @@
-package com.example.casestudy.service;
+package com.example.casestudy.service.contract;
 
 import com.example.casestudy.model.contract.Contract;
 

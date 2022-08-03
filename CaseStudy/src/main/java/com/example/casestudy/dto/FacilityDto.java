@@ -1,35 +1,45 @@
-package com.example.casestudy.model.facility;
+package com.example.casestudy.dto;
 
-import javax.persistence.*;
+import com.example.casestudy.model.facility.FacilityType;
+import com.example.casestudy.model.facility.RentType;
 
-@Entity
-public class Facility {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+
+
+public class FacilityDto {
     private int facilityId;
+
+    @Pattern(regexp = "^([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5}$", message = "Wrong format")
     private String facilityName;
+
+    @Min(value = 1,message = "Minimum value is 1")
     private int are;
+
+    @Min(value = 1,message = "Minimum value is 0")
     private int cost;
+
+    @Min(value = 1,message = "Minimum value is 1")
     private int maxPeople;
 
-    @ManyToOne
-    @JoinColumn(name = "rentTypeId",referencedColumnName ="rentTypeId")
     private RentType rentTypeId;
 
-    @ManyToOne
-    @JoinColumn(name="facilityTypeId",referencedColumnName = "facilityTypeId")
     private FacilityType facilityTypeId;
 
     private String standardRoom;
+
     private String descriptionOtherConvenience;
+
     private double poolArea;
+
+    @Min(value = 1,message = "Minimum value is 1")
     private int numberOffloors;
     private String facilityFree;
 
-    public Facility() {
+    public FacilityDto() {
     }
 
-    public Facility(int facilityId, String facilityName, int are, int cost, int maxPeople, RentType rentTypeId, FacilityType facilityTypeId, String standardRoom, String descriptionOtherConvenience, double poolArea, int numberOffloors, String facalityFree) {
+    public FacilityDto(int facilityId, String facilityName, int are, int cost, int maxPeople, RentType rentTypeId, FacilityType facilityTypeId, String standardRoom, String descriptionOtherConvenience, double poolArea, int numberOffloors, String facalityFree) {
         this.facilityId = facilityId;
         this.facilityName = facilityName;
         this.are = are;
@@ -136,7 +146,7 @@ public class Facility {
         return facilityFree;
     }
 
-    public void setFacilityFree(String facalityFree) {
-        this.facilityFree = facalityFree;
+    public void setFacilityFree(String facilityFree) {
+        this.facilityFree = facilityFree;
     }
 }

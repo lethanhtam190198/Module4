@@ -110,7 +110,7 @@
         </div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark "
-         style="background-color: blanchedalmond;position: sticky;top: 0;z-index: 1;">
+         style="background-color: coral;position: sticky;top: 0;z-index: 1;">
         <div class="container-fluid">
             <a class="navbar-brand" href="/view/home.jsp">Employee</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -150,7 +150,7 @@
             </form>
         </div>
     </nav>
-    <div class="body_center_2 container">
+    <div class="table table-striped table-hover container">
         <center>
             <div class="notify">
                 <!--/*@thymesVar id="success" type=""*/-->
@@ -159,9 +159,9 @@
                 </div>
             </div>
         </center>
-        <table id="product" class="table table-success table-striped">
+        <table id="product" class="table table-striped table-hover">
             <thead>
-            <tr class="table-info">
+            <tr class="">
                 <th>Id</th>
                 <th>Name</th>
                 <th>Date Of Birth</th>
@@ -234,7 +234,6 @@
                 document.getElementById("nameDelete").innerText = arr[1];
             }
         </script>
-
         <!--    <div class="body_center_2">-->
         <!--      <a th:href="@{'/employee/search'(page=${employeeList.number - 1},name=${search})}"-->
         <!--         th:if="${customerList.hasPrevious()}">Previous</a>-->
@@ -243,14 +242,7 @@
         <!--         th:if="${employeeList.hasNext()}">Next</a>-->
         <!--    </div>-->
     </div>
-    <div class="footer container-fluid">
-        <footer class="text-center text-lg-start text-break " style="background-color:#1cad85b0">
-            <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-                © 2021 Copyright:
-                <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-            </div>
-        </footer>
-    </div>
+
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

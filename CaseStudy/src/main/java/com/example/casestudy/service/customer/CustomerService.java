@@ -1,4 +1,4 @@
-package com.example.casestudy.service.impl;
+package com.example.casestudy.service.customer;
 
 import com.example.casestudy.model.customer.Customer;
 import com.example.casestudy.repository.customer.ICustomerRepository;

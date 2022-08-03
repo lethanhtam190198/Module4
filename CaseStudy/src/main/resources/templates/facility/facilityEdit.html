@@ -2,13 +2,13 @@
 <html>
 <head>
     <title>Title</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 <div>
-    <div class="row container-fluid" style="height: 20px; background-color:#4cd7c845"></div>
+    <div class="row container-fluid" style="height: 20px; background-color:#cbbe73"></div>
     <div class="header container">
         <div class="row">
             <div class="col-lg-3">
@@ -59,7 +59,7 @@
                     </div>
                     <div class="col-md-10">
                         <p>
-                            reservation@furamavietnam.com
+                            ..............
                         </p>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                     </div>
                     <div class="col-md-10">
                         <p>
-                            Tran Van Hai
+                            ..............
                         </p>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                     </div>
                     <div class="col-md-10">
                         <p>
-                            0707498777
+                            ........
                         </p>
                     </div>
                 </div>
@@ -102,27 +102,24 @@
                     </div>
                     <div class="col-md-10">
                         <p>
-                            tranvanhai5919892gmail.com
+                            .............
                         </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-dark "
-         style="background-color: #046056;position: sticky;top: 0;z-index: 1;">
+    <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: seagreen ;top: 0;z-index: 1;">
         <div class="container-fluid">
-            <a class="navbar-brand "> Customer</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand " >Create Facility</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             </div>
         </div>
         <div class="container-fluid">
-            <a class="navbar-brand " th:href="@{/}">
+            <a class="navbar-brand " th:href="@{/facility}">
                 Back to Main Page
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -133,108 +130,159 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent1">
             </div>
         </div>
-        <div class="container-fluid">
-            <a class="navbar-brand " th:href="@{/customer/create}">
-                Create Customer
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent2">
-            </div>
-        </div>
     </nav>
     <div class="body_center_2 container">
+        <form th:action="@{/facility/update}" method="post" th:object="${facility}">
+        <div class="mb-3">
+            <input class="form-control" type="hidden" th:field="*{facilityId}">
+
+            <label class="form-label">Facility Type</label>
+            <select class="form-select" name="" id="facilityType" onload="onchangeFacility(this.value)"
+                    onchange="onchangeFacility(this.value)" th:field="*{facilityTypeId}" th:default="99">
+                <option th:each="row:${facilityTypeList}" th:text="${row.facilityTypeName}"
+                        th:value="${row.facilityTypeId}">
+
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label"> Facility Name</label>
+            <input class="form-control" type="text" th:field="*{facilityName}">
+            <p style="color:red" th:if="${#fields.hasErrors('facilityName')}" th:errors="*{facilityName}"></p>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Cost</label>
+            <input type="number" class="form-control" th:field="*{cost}">
+            <p style="color:red" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}"></p>
+
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Area</label>
+            <input class="form-control" type="number" th:field="*{are}">
+            <p style="color:red" th:if="${#fields.hasErrors('are')}" th:errors="*{are}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Max People</label>
+            <input class="form-control" type="number" th:field="*{maxPeople}">
+            <p style="color:red" th:if="${#fields.hasErrors('maxPeople')} "
+               th:errors="*{maxPeople}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Rent type</label>
+            <select class="form-select" th:field="*{rentTypeId}">
+                <option th:each="row:${rentTypeList}" th:text="${row.rentTypeName}"
+                        th:value="${row.rentTypeId}"></option>
+            </select>
+
+        </div>
+        <div class="mb-3" id="standardRoom">
+            <label class="form-label">Stand Room</label>
+
+            <input type="text" th:field="*{standardRoom}"
+                   class=" form-control">
+            <p style="color:red" th:if="${#fields.hasErrors('standardRoom')}"
+               th:errors="*{standardRoom}"></p>
+        </div>
+
+        <div class="mb-3" id="other">
+            <label class="form-label">Description other convenience</label>
+            <input class=" form-control" type="text"
+                   th:field="*{descriptionOtherConvenience}">
+            <p style="color:red" th:if="${#fields.hasErrors('descriptionOtherConvenience')}"
+               th:errors="*{descriptionOtherConvenience}"></p>
+        </div>
+
+        <div class="mb-3" id="pool">
+            <label class="form-label">Pool Area</label>
+            <input type="text" th:field="*{poolArea}"
+                   class="form-control">
+            <p style="color:red" th:if="${#fields.hasErrors('poolArea')}"
+               th:errors="*{poolArea}"></p>
+        </div>
+
+        <div class="mb-3" id="floors">
+            <label class="form-label">Number of Floors</label>
+            <input type="text" th:field="*{numberOffloors}"
+                   class=" form-control">
+            <p style="color:red" th:if="${#fields.hasErrors('numberOffloors')}"
+               th:errors="*{numberOffloors}"></p>
+        </div>
+
+        <div class="mb-3" id="free">
+            <label class="form-label">Free service</label>
+            <input type="text" th:field="*{facilityFree}"
+                   class=" form-control">
+            <p style="color:red" th:if="${#fields.hasErrors('facilityFree')}"
+               th:errors="*{facilityFree}"></p>
+        </div>
         <center>
-            <div class="notify">
-                <div th:if="${success}">
-                    <span th:text="${success}"></span>
-                </div>
-            </div>
+            <input type="submit" class="btn btn-outline-primary" value="Create">
         </center>
-        <table id="product" class="table table-striped">
-            <thead>
-            <tr class="table-info">
-                <th>Id</th>
-                <th>Type</th>
-                <th>Name</th>
-                <th>Birthday</th>
-                <th>Gender</th>
-                <th>Id Card</th>
-                <th>Phone Number</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="row : ${customerList}">
-                <td th:text="${row.customerId}"></td>
-                <td th:text="${row.customerType.getCustomerTypeName}"></td>
-                <td th:text="${row.customerName}"></td>
-                <td th:text="${row.dayOfBirth}"></td>
+        </form>
 
-                <td th:if="${row.gender==1}" th:text="Male"></td>
-                <td th:if="${row.gender==0}" th:text="Female"></td>
-
-                <td th:text="${row.customerIdCard}"></td>
-                <td th:text="${row.phoneNumber}"></td>
-                <td th:text="${row.customerEmail}"></td>
-                <td th:text="${row.address}"></td>
-                <td><a th:href="@{/customer/{id}/edit(id=${row.customerId})}">Edit</a></td>
-                <td>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                            th:data-bs-target="'#a' + ${row.customerId}">
-                        Delete
-                    </button>
-
-                    <div class="modal fade" th:id="a + ${row.customerId}" data-bs-backdrop="static"
-                         data-bs-keyboard="false"
-                         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Do you want delete
-                                    <span class="text-info" th:text="${row.customerName}"></span> with id =
-                                    <span class="text-info" th:text="${row.customerId}"></span>
-                                </div>
-                                <!--                        <div class="modal-footer">-->
-                                <a th:href="@{/customer/delete(id=${row.customerId})}"
-                                   class="btn btn-outline-success">Delete</a>
-                                <button type="button" class="btn btn-secondary center-pill" data-bs-dismiss="modal">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                <!--                    <td><a th:href="@{/blog/{id}/view(id=${row.id})}">View</a></td>-->
-            </tr>
-
-            </tbody>
-        </table>
-
-        <!--        <div class="body_center_2">-->
-        <!--            <a th:href="@{'/customer/search'(page=${customerList.number - 1},name=${search})}"-->
-        <!--               th:if="${customerList.hasPrevious()}">Previous</a>-->
-        <!--            <span th:text="${customerList.number + 1}"></span>/<span th:text="${customerList.totalPages}"></span>-->
-        <!--            <a th:href="@{'/customer/search'(page=${customerList.number + 1},name=${search})}"-->
-        <!--               th:if="${customerList.hasNext()}">Next</a>-->
-        <!--        </div>-->
     </div>
+    <script>
+        let value = document.getElementById("facilityType").value;
+        if (value ==1) {
+            $("#standardRoom").show();
+            $("#other").show();
+            $("#pool").show();
+            $("#floors").show();
+            $("#free").hide();
+        } else if (value ==2) {
+            $("#standardRoom").show();
+            $("#other").show();
+            $("#pool").hide();
+            $("#floors").show();
+            $("#free").hide();
+        } else if (value == 3) {
+            $("#standardRoom").hide();
+            $("#other").hide();
+            $("#pool").hide();
+            $("#floors").hide();
+            $("#free").show();
+        }else {
+            $("#standardRoom").hide();
+            $("#other").hide();
+            $("#pool").hide();
+            $("#floors").hide();
+            $("#free").hide();
+        }
 
-
+        function onchangeFacility(value) {
+            debugger
+            if (value ==1) {
+                $("#standardRoom").show();
+                $("#other").show();
+                $("#pool").show();
+                $("#floors").show();
+                $("#free").hide();
+            } else if (value ==2) {
+                $("#standardRoom").show();
+                $("#other").show();
+                $("#pool").hide();
+                $("#floors").show();
+                $("#free").hide();
+            } else if (value == 3) {
+                $("#standardRoom").hide();
+                $("#other").hide();
+                $("#pool").hide();
+                $("#floors").hide();
+                $("#free").show();
+            }else {
+                $("#standardRoom").hide();
+                $("#other").hide();
+                $("#pool").hide();
+                $("#floors").hide();
+                $("#free").hide();
+            }
+        }
+    </script>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

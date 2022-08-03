@@ -5,26 +5,40 @@ import com.example.casestudy.model.employee.EducationDegree;
 import com.example.casestudy.model.employee.Position;
 import com.example.casestudy.model.user.User;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
 
 public class EmployeeDto {
 
     private int employeeId;
-    @Pattern(regexp = "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒ\n" +
-            " ÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$", message = "Wrong format")
+
+
+    @Pattern(regexp = "^([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5}$", message = "Wrong format")
     private String employeeName;
+
     private String employeeDayOfBirth;
 
+    @Pattern(regexp = "^[0-9]{9}")
     private String employeeIdCard;
+
+    @Min(0)
     private double employeeSalary;
+
     @Pattern(regexp = "^[090|091|+84]{1}[0-9\\-\\+]{9,15}$")
     private String employeePhoneNumber;
+
+    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "abc@gmail.com")
     private String employeeEmail;
+
     private String employeeAddress;
+
     private Position position;
+
     private EducationDegree educationDegree;
+
     private Division division;
+
     private User userName;
 
     public EmployeeDto() {

@@ -1,4 +1,4 @@
-package com.example.casestudy.repository;
+package com.example.casestudy.repository.customer;
 
 import com.example.casestudy.model.customer.Customer;
 import com.example.casestudy.model.customer.CustomerType;
@@ -34,5 +34,4 @@ public interface ICustomerRepository extends JpaRepository<Customer,Integer> {
                         @Param("customerEmail")String customerEmail,
                         @Param("address")String address,
                         @Param("customerId")int customerId);
-
 }
