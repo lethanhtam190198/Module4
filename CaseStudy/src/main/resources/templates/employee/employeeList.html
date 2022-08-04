@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -8,7 +9,7 @@
 </head>
 <body>
 <div>
-    <div class="row container-fluid" style="height: 20px; background-color:#4cd7c845"></div>
+    <div class="row container-fluid" style="height: 20px" ></div>
     <div class="header container">
         <div class="row">
             <div class="col-lg-3">
@@ -131,9 +132,7 @@
                 </div>
             </div>
             <div class="container-fluid">
-                <a class="navbar-brand " th:href="@{employee/create}">
-                    Create Employee
-                </a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -144,9 +143,10 @@
             </div>
 
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+            <form class="d-flex" th:action="@{/employee/search}">
+                <input class="form-control me-2" size="60px" placeholder="Search" name="name" aria-label="Search"
+                       th:text="${name}">
+                <button class="btn btn-outline-success" type="submit" value="search">Search</button>
             </form>
         </div>
     </nav>
@@ -174,8 +174,8 @@
                 <th>Education Degree</th>
                 <th>Division</th>
                 <th>User</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th sec:authorize="hasRole('admin')">Edit</th>
+                <th sec:authorize="hasRole('admin')">Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -192,8 +192,8 @@
                 <td th:text="${row.educationDegree.getEducationDegreeName()}"></td>
                 <td th:text="${row.division.getDivisionName()}"></td>
                 <td th:text="${row.userName.getUserName()}"></td>
-                <td><a th:href="@{/employee/{id}/edit(id=${row.employeeId})}">Edit</a></td>
-                <td>
+                <td sec:authorize="hasRole('admin')"><a class="btn btn-danger" th:href="@{/employee/{id}/edit(id=${row.employeeId})}">Edit</a></td>
+                <td sec:authorize="hasRole('admin')">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
                             onclick="infoDelete(this.value)" th:value="${row.employeeId}+','+${row.employeeName}">Delete
                     </button>
@@ -241,6 +241,9 @@
         <!--      <a th:href="@{'/employee/search'(page=${employeeList.number + 1},name=${search})}"-->
         <!--         th:if="${employeeList.hasNext()}">Next</a>-->
         <!--    </div>-->
+        <a  class="navbar-brand btn btn-danger " th:href="@{employee/create}">
+            Create Employee
+        </a>
     </div>
 
 

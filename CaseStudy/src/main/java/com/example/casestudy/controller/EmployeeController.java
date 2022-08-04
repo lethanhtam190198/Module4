@@ -114,4 +114,11 @@ public class EmployeeController {
             return "redirect:/employee";
         }
     }
+
+    @GetMapping("/search")
+    public String search(@RequestParam("name") String name, Model model) {
+        model.addAttribute("employeeList", employeeService.searchByName(name));
+        model.addAttribute("search", name);
+        return "employee/employeeList";
+    }
 }

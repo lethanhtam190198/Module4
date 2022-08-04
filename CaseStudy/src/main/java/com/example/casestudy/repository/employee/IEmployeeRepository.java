@@ -1,5 +1,6 @@
 package com.example.casestudy.repository.employee;
 
+import com.example.casestudy.model.customer.Customer;
 import com.example.casestudy.model.employee.Division;
 import com.example.casestudy.model.employee.EducationDegree;
 import com.example.casestudy.model.employee.Employee;
@@ -11,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
@@ -25,4 +27,7 @@ void updateEmployee(@Param("employeeName")String employeeName, @Param("employeeD
                     @Param("employeeEmail") String employeeEmail, @Param("employeeAddress") String employeeAddress,
                     @Param("position") Position position, @Param("educationDegree") EducationDegree educationDegree,
                     @Param("division") Division division, @Param("userName") User userName, @Param("employeeId")int employeeId);
+
+    @Query(value = "select * from employee where  employee_name like :name ",nativeQuery = true)
+    List<Employee> searchByName(@Param("name")String name);
 }

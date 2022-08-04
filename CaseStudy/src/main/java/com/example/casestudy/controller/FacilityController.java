@@ -72,13 +72,13 @@ public class FacilityController {
         return "facility/facilityEdit";
     }
 
-    @PostMapping("update")
+    @PostMapping("/update")
     public String edit(@ModelAttribute("facilityDto") @Validated FacilityDto facilityDto,
                        BindingResult bindingResult,
                        RedirectAttributes redirect,
                        Model model) {
         if (bindingResult.hasFieldErrors()) {
-            model.addAttribute("facilityDto", facilityDto);
+            model.addAttribute("facility", facilityDto);
             model.addAttribute("facilityTypeList", facilityTypeService.findAll());
             model.addAttribute("rentTypeList", rentTypeService.findAll());
             return "facility/facilityEdit";
@@ -103,6 +103,6 @@ public class FacilityController {
     public String search(@RequestParam("name") String name, Model model) {
         model.addAttribute("facilityList", facilityService.searchByName(name));
         model.addAttribute("search", name);
-        return "facility/facilityIndex";
+        return "facility/facilityList";
     }
 }

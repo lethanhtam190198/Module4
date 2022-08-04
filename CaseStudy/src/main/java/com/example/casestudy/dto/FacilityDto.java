@@ -39,7 +39,7 @@ public class FacilityDto {
     public FacilityDto() {
     }
 
-    public FacilityDto(int facilityId, String facilityName, int are, int cost, int maxPeople, RentType rentTypeId, FacilityType facilityTypeId, String standardRoom, String descriptionOtherConvenience, double poolArea, int numberOffloors, String facalityFree) {
+    public FacilityDto(int facilityId, String facilityName, int are, int cost, int maxPeople, RentType rentTypeId, FacilityType facilityTypeId, String standardRoom, String descriptionOtherConvenience, double poolArea, int numberOffloors, String facilityFree) {
         this.facilityId = facilityId;
         this.facilityName = facilityName;
         this.are = are;
@@ -51,7 +51,7 @@ public class FacilityDto {
         this.descriptionOtherConvenience = descriptionOtherConvenience;
         this.poolArea = poolArea;
         this.numberOffloors = numberOffloors;
-        this.facilityFree = facalityFree;
+        this.facilityFree = facilityFree;
     }
 
     public int getFacilityId() {

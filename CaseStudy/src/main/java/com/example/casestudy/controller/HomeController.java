@@ -9,4 +9,16 @@ public class HomeController {
     public String home() {
         return "home";
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login/formLogin";
+    }
+
+    @GetMapping("/403")
+    public String error() {
+        return "error/403";
+    }
+
+
 }

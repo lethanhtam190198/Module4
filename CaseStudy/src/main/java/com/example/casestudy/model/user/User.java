@@ -14,7 +14,7 @@ public class User {
     @OneToMany(mappedBy = "userName", cascade = CascadeType.ALL)
     private Set<Employee> employees;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users",fetch=FetchType.EAGER)
     private Set<Role> roles;
 
     public User() {

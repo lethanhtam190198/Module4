@@ -4,6 +4,8 @@ import com.example.casestudy.model.customer.Customer;
 import com.example.casestudy.repository.customer.ICustomerRepository;
 import com.example.casestudy.service.customer.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -17,8 +19,8 @@ public class CustomerService implements ICustomerService {
     private ICustomerRepository customerRepository;
 
     @Override
-    public List<Customer> findAll() {
-        return customerRepository.findAll();
+    public Page<Customer> findAll(Pageable pageable) {
+        return customerRepository.findAll(pageable);
     }
 
     @Override
@@ -33,9 +35,9 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public void updateCustomer(Customer customer) {
-        customerRepository.updateCustomer(customer.getCustomerType(),customer.getCustomerName(),customer.getDayOfBirth(),
-                customer.getGender(),customer.getCustomerIdCard(),customer.getPhoneNumber(),customer.getCustomerEmail(),
-                customer.getAddress(),customer.getCustomerId());
+        customerRepository.updateCustomer(customer.getCustomerType(), customer.getCustomerName(), customer.getDayOfBirth(),
+                customer.getGender(), customer.getCustomerIdCard(), customer.getPhoneNumber(), customer.getCustomerEmail(),
+                customer.getAddress(), customer.getCustomerId());
     }
 
     @Override
@@ -44,7 +46,7 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public List<Customer> searchByName(String name) {
-        return null;
+    public Page<Customer> searchByName(String name,Pageable pageable) {
+        return customerRepository.searchByName("%" + name + "%",pageable);
     }
 }

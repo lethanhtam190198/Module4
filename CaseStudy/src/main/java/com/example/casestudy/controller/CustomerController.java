@@ -9,6 +9,9 @@ import com.example.casestudy.service.customer.CustomerService;
 import com.example.casestudy.service.customer.CustomerTypeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,8 +32,8 @@ public class CustomerController {
     private CustomerTypeService customerTypeService;
 
     @GetMapping("")
-    public String index( Model model) {
-        model.addAttribute("customerList",  customerService.findAll());
+    public String index(@PageableDefault(value = 4) Pageable pageable, Model model) {
+        model.addAttribute("customerList",  customerService.findAll(pageable));
         return "customer/customerList";
     }
 
@@ -102,9 +105,9 @@ public class CustomerController {
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam("name") String name, Model model) {
-        model.addAttribute("customerList", customerService.searchByName(name));
-        model.addAttribute("search", name);
+    public String search(@RequestParam("name") String name, Model model,@PageableDefault(value = 4) Pageable pageable) {
+        model.addAttribute("customerList", customerService.searchByName(name,pageable));
+       model.addAttribute("search", name);
         return "customer/customerList";
     }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -144,9 +145,10 @@
             </div>
 
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+            <form class="d-flex" th:action="@{/facility/search}">
+                <input class="form-control me-2" size="60px" placeholder="Search" name="name" aria-label="Search"
+                       th:text="${name}">
+                <button class="btn btn-outline-success" type="submit" value="search">Search</button>
             </form>
         </div>
     </nav>
@@ -174,8 +176,8 @@
                 <th>pool_area</th>
                 <th>number_of_floors</th>
                 <th>facility_free</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th sec:authorize="hasRole('admin')">Edit</th>
+                <th sec:authorize="hasRole('admin')">Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -192,8 +194,8 @@
                 <td th:text="${row.poolArea}"></td>
                 <td th:text="${row.numberOffloors}"></td>
                 <td th:text="${row.facilityFree}"></td>
-                <td><a th:href="@{/facility/{id}/edit(id=${row.facilityId})}">Edit</a></td>
-                <td>
+                <td sec:authorize="hasRole('admin')"><a th:href="@{/facility/{id}/edit(id=${row.facilityId})}">Edit</a></td>
+                <td sec:authorize="hasRole('admin')">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
                             onclick="infoDelete(this.value)" th:value="${row.facilityId}+','+${row.facilityName}">Delete
                     </button>

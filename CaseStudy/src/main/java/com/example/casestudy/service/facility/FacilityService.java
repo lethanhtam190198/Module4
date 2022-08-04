@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class FacilityService implements IFacilityService{
+public class FacilityService implements IFacilityService {
 
     @Autowired
     private IFacilityRepository facilityRepository;
@@ -32,6 +32,14 @@ public class FacilityService implements IFacilityService{
 
     @Override
     public void updateFacility(Facility facility) {
+        int i = facility.getFacilityTypeId().getFacilityTypeId();
+        if(i==2){
+           facility.setPoolArea(0);
+        }
+        if(i==3){
+            facility.setPoolArea(0);
+            facility.setNumberOffloors(0);
+        }
         facilityRepository.save(facility);
     }
 
@@ -42,6 +50,6 @@ public class FacilityService implements IFacilityService{
 
     @Override
     public List<Facility> searchByName(String name) {
-        return null;
+        return facilityRepository.searchByName("%" + name + "%");
     }
 }

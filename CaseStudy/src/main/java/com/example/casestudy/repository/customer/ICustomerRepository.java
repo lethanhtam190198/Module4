@@ -6,12 +6,15 @@ import com.example.casestudy.model.employee.Division;
 import com.example.casestudy.model.employee.EducationDegree;
 import com.example.casestudy.model.employee.Position;
 import com.example.casestudy.model.user.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 public interface ICustomerRepository extends JpaRepository<Customer,Integer> {
@@ -34,4 +37,7 @@ public interface ICustomerRepository extends JpaRepository<Customer,Integer> {
                         @Param("customerEmail")String customerEmail,
                         @Param("address")String address,
                         @Param("customerId")int customerId);
+
+    @Query(value = "select * from customer where  customer_name like :name ",nativeQuery = true)
+    Page<Customer> searchByName(@Param("name")String name, Pageable pageable);
 }

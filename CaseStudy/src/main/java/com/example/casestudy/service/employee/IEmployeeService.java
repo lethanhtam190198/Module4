@@ -1,5 +1,6 @@
 package com.example.casestudy.service.employee;
 
+import com.example.casestudy.model.customer.Customer;
 import com.example.casestudy.model.employee.Employee;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface IEmployeeService {
     void updateEmployee(Employee employee);
 
     Employee findById(int id);
+
+    List<Employee> searchByName(String name);
 }

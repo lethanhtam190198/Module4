@@ -2,11 +2,13 @@ package com.example.casestudy.service.customer;
 
 import com.example.casestudy.model.customer.Customer;
 import com.example.casestudy.model.employee.Employee;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface ICustomerService {
-    List<Customer> findAll();
+    Page<Customer> findAll(Pageable pageable);
 
     void save(Customer customer);
 
@@ -16,5 +18,5 @@ public interface ICustomerService {
 
     Customer findById(int id);
 
-    List<Customer> searchByName(String name);
+    Page<Customer> searchByName(String name,Pageable pageable);
 }

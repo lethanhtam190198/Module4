@@ -10,7 +10,7 @@ public class Role {
     private int roleId;
     private String roleName;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="user_role",joinColumns = @JoinColumn(name="role_id"),
     inverseJoinColumns = @JoinColumn(name = "userName"))
     private Set<User> users;
