@@ -143,7 +143,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent2">
             </div>
 
-            <form class="d-flex" th:action="@{/customer/search}">
+            <form class="d-flex" th:action="@{/customer}">
                 <input class="form-control me-2" size="60px" placeholder="Search" name="name" aria-label="Search"
                        th:text="${name}">
                 <button class="btn btn-danger" type="submit" value="search">Search</button>
@@ -231,10 +231,10 @@
             Create Customer
         </a>
         <center>
-            <a th:href="@{'/customer/search'(page=${customerList.number - 1},name = ${search})}"
+            <a th:href="@{'/customer'(page=${customerList.number - 1},name = ${name})}"
                th:if="${customerList.hasPrevious()}">Previous</a>
             <span th:text="${customerList.number + 1}"></span>/<span th:text="${customerList.totalPages}"></span>
-            <a th:href="@{'/customer/search'(page=${customerList.number + 1},name = ${search})}"
+            <a th:href="@{'/customer'(page=${customerList.number + 1},name = ${name})}"
                th:if="${customerList.hasNext()}">Next</a>
         </center>
 

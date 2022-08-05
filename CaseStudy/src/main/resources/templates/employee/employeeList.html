@@ -143,9 +143,15 @@
             </div>
 
             </ul>
-            <form class="d-flex" th:action="@{/employee/search}">
-                <input class="form-control me-2" size="60px" placeholder="Search" name="name" aria-label="Search"
-                       th:text="${name}">
+            <form class="d-flex" th:action="@{/employee}">
+                <input th:value="${name}" class="form-control me-2" size="60px" placeholder="Search" name="name" aria-label="Search">
+                <select name="position" class="form-control" >
+                    <option value="">---Choose----</option>
+                    <option th:each=" position : ${positionList}" th:value="${position.getPositionId()}"
+                            th:text="${position.getPositionName()}">
+
+                    </option>
+                </select>
                 <button class="btn btn-outline-success" type="submit" value="search">Search</button>
             </form>
         </div>
@@ -234,13 +240,15 @@
                 document.getElementById("nameDelete").innerText = arr[1];
             }
         </script>
-        <!--    <div class="body_center_2">-->
-        <!--      <a th:href="@{'/employee/search'(page=${employeeList.number - 1},name=${search})}"-->
-        <!--         th:if="${customerList.hasPrevious()}">Previous</a>-->
-        <!--      <span th:text="${employeeList.number + 1}"></span>/<span th:text="${employeeList.totalPages}"></span>-->
-        <!--      <a th:href="@{'/employee/search'(page=${employeeList.number + 1},name=${search})}"-->
-        <!--         th:if="${employeeList.hasNext()}">Next</a>-->
-        <!--    </div>-->
+        <center>
+            <div class="body_center_2">
+              <a th:href="@{'/employee'(page=${employeeList.number - 1},name=${name})}"
+                 th:if="${employeeList.hasPrevious()}">Previous</a>
+              <span th:text="${employeeList.number + 1}"></span>/<span th:text="${employeeList.totalPages}"></span>
+              <a th:href="@{'/employee'(page=${employeeList.number + 1},name=${name})}"
+                 th:if="${employeeList.hasNext()}">Next</a>
+            </div>
+        </center>
         <a  class="navbar-brand btn btn-danger " th:href="@{employee/create}">
             Create Employee
         </a>

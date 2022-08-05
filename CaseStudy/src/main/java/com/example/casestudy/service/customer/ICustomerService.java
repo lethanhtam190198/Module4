@@ -18,5 +18,5 @@ public interface ICustomerService {
 
     Customer findById(int id);
 
-    Page<Customer> searchByName(String name,Pageable pageable);
+    Page<Customer> searchByName(Pageable pageable,String name);
 }

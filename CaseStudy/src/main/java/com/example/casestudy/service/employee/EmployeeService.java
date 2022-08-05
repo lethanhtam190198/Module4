@@ -4,6 +4,8 @@ import com.example.casestudy.model.employee.Employee;
 import com.example.casestudy.repository.employee.IEmployeeRepository;
 import com.example.casestudy.service.employee.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,8 +18,8 @@ public class EmployeeService implements IEmployeeService {
     private IEmployeeRepository employeeRepository;
 
     @Override
-    public List<Employee> findAll() {
-        return employeeRepository.findAll();
+    public Page<Employee> findAll(Pageable pageable) {
+        return employeeRepository.findAll(pageable);
     }
 
     @Override
@@ -43,7 +45,7 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public List<Employee> searchByName(String name) {
-        return employeeRepository.searchByName("%"+name+"%");
+    public Page<Employee> searchByName(String name,String position, Pageable pageable) {
+        return employeeRepository.searchByName("%"+name+"%","%"+position+"%", pageable);
     }
 }

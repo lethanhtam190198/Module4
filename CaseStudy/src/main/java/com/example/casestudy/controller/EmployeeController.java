@@ -11,6 +11,8 @@ import com.example.casestudy.service.employee.IEmployeeService;
 import com.example.casestudy.service.employee.IPositionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/employee")
@@ -35,17 +38,28 @@ public class EmployeeController {
     @Autowired
     private IDivisionService divisionService;
 
+    @ModelAttribute(value = "positionList")
+    public void findAllPosition(Model model) {
+        List<Position> positionList =  this.positionService.findAll();
+        model.addAttribute("positionList",positionList);
+    }
 
-    @GetMapping({""})
-    public String index(Model model) {
-        model.addAttribute("employeeList", employeeService.findAll());
+
+    @GetMapping("")
+    public String list(@PageableDefault(value = 4) Pageable pageable,
+                        Model model,
+                        @RequestParam Optional<String> name,
+                       @RequestParam(value = "position",defaultValue = "") String position)  {
+        model.addAttribute("name", name.orElse(""));
+        model.addAttribute("employeeList",  employeeService.searchByName(name.orElse(""),position,pageable));
+        model.addAttribute("position",position);
         return "employee/employeeList";
     }
+
 
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("employeeDto", new EmployeeDto());
-
         model.addAttribute("positionList", positionService.findAll());
         model.addAttribute("educationDegreeList", educationDegreeService.findAll());
         model.addAttribute("divisionList", divisionService.findAll());
@@ -58,7 +72,6 @@ public class EmployeeController {
                        RedirectAttributes redirectAttributes,
                        Model model) {
         if (bindingResult.hasFieldErrors()) {
-            model.addAttribute("employeeList", employeeService.findAll());
             model.addAttribute("positionList", positionService.findAll());
             model.addAttribute("educationDegreeList", educationDegreeService.findAll());
             model.addAttribute("divisionList", divisionService.findAll());
@@ -115,10 +128,10 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/search")
-    public String search(@RequestParam("name") String name, Model model) {
-        model.addAttribute("employeeList", employeeService.searchByName(name));
-        model.addAttribute("search", name);
-        return "employee/employeeList";
-    }
+//    @GetMapping("/search")
+//    public String search(@RequestParam("name") String name, Model model) {
+//        model.addAttribute("employeeList", employeeService.searchByName(name));
+//        model.addAttribute("search", name);
+//        return "employee/employeeList";
+//    }
 }

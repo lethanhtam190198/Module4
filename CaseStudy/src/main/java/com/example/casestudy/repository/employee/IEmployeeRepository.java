@@ -1,11 +1,12 @@
 package com.example.casestudy.repository.employee;
 
-import com.example.casestudy.model.customer.Customer;
 import com.example.casestudy.model.employee.Division;
 import com.example.casestudy.model.employee.EducationDegree;
 import com.example.casestudy.model.employee.Employee;
 import com.example.casestudy.model.employee.Position;
 import com.example.casestudy.model.user.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,13 +22,13 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
             " employee_id_card=:employeeIdCard,employee_salary=:employeeSalary, " +
             " employee_phone_number=:employeePhoneNumber,employee_email=:employeeEmail, " +
             " employee_address=:employeeAddress,position_id=:position,education_degree_id=:educationDegree, " +
-            " division_id=:division,user_name=:userName where employee_id=:employeeId ",nativeQuery = true)
-void updateEmployee(@Param("employeeName")String employeeName, @Param("employeeDayOfBirth")String employeeDayOfBirth, @Param("employeeIdCard")String employeeIdCard,
-                    @Param("employeeSalary") double employeeSalary, @Param("employeePhoneNumber")String employeePhoneNumber,
-                    @Param("employeeEmail") String employeeEmail, @Param("employeeAddress") String employeeAddress,
-                    @Param("position") Position position, @Param("educationDegree") EducationDegree educationDegree,
-                    @Param("division") Division division, @Param("userName") User userName, @Param("employeeId")int employeeId);
+            " division_id=:division,user_name=:userName where employee_id=:employeeId ", nativeQuery = true)
+    void updateEmployee(@Param("employeeName") String employeeName, @Param("employeeDayOfBirth") String employeeDayOfBirth, @Param("employeeIdCard") String employeeIdCard,
+                        @Param("employeeSalary") double employeeSalary, @Param("employeePhoneNumber") String employeePhoneNumber,
+                        @Param("employeeEmail") String employeeEmail, @Param("employeeAddress") String employeeAddress,
+                        @Param("position") Position position, @Param("educationDegree") EducationDegree educationDegree,
+                        @Param("division") Division division, @Param("userName") User userName, @Param("employeeId") int employeeId);
 
-    @Query(value = "select * from employee where  employee_name like :name ",nativeQuery = true)
-    List<Employee> searchByName(@Param("name")String name);
+    @Query(value = "select * from employee where  employee_name like :name and position_id like :position ", nativeQuery = true)
+    Page<Employee> searchByName(@Param("name") String name,@Param("position") String position, Pageable pageable);
 }

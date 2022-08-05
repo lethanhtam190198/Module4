@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/customer")
@@ -32,8 +33,11 @@ public class CustomerController {
     private CustomerTypeService customerTypeService;
 
     @GetMapping("")
-    public String index(@PageableDefault(value = 4) Pageable pageable, Model model) {
-        model.addAttribute("customerList",  customerService.findAll(pageable));
+    public String index(@PageableDefault(value = 4) Pageable pageable,
+                        Model model,
+                        @RequestParam Optional<String> name) {
+        model.addAttribute("name", name.orElse(""));
+        model.addAttribute("customerList",  customerService.searchByName(pageable,name.orElse("")));
         return "customer/customerList";
     }
 
@@ -104,10 +108,10 @@ public class CustomerController {
         return "redirect:/customer";
     }
 
-    @GetMapping("/search")
-    public String search(@RequestParam("name") String name, Model model,@PageableDefault(value = 4) Pageable pageable) {
-        model.addAttribute("customerList", customerService.searchByName(name,pageable));
-       model.addAttribute("search", name);
-        return "customer/customerList";
-    }
+//    @GetMapping("/search")
+//    public String search(@RequestParam("name") String name, Model model,@PageableDefault(value = 4) Pageable pageable) {
+//        model.addAttribute("customerList", customerService.searchByName(name,pageable));
+//       model.addAttribute("search", name);
+//        return "customer/customerList";
+//    }
 }
