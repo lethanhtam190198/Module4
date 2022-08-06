@@ -11,10 +11,10 @@ public class Customer {
     @ManyToOne
     @JoinColumn(name ="customerTypeId",referencedColumnName = "customerTypeId")
     private CustomerType customerType;
-
     private String customerName;
     private String dayOfBirth;
     private int gender;
+    @Column(unique = true)
     private String customerIdCard;
     private String phoneNumber;
     private String customerEmail;

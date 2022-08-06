@@ -149,7 +149,6 @@
                     <option value="">---Choose----</option>
                     <option th:each=" position : ${positionList}" th:value="${position.getPositionId()}"
                             th:text="${position.getPositionName()}">
-
                     </option>
                 </select>
                 <button class="btn btn-outline-success" type="submit" value="search">Search</button>
@@ -164,11 +163,15 @@
                     <span th:text="${success}"></span>
                 </div>
             </div>
+<!--            <button sec:authorize="hasRole('admin')" type="button" class="btn btn-danger" data-bs-toggle="modal"-->
+<!--                    data-bs-target="#exampleModalCreate">-->
+<!--                <label>Crete</label>-->
+<!--            </button>-->
         </center>
         <table id="product" class="table table-striped table-hover">
             <thead>
             <tr class="">
-                <th>Id</th>
+                <th>STT</th>
                 <th>Name</th>
                 <th>Date Of Birth</th>
                 <th>Id Card</th>
@@ -185,8 +188,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="row : ${employeeList}">
-                <td th:text="${row.employeeId}"></td>
+            <tr th:each="row ,count: ${employeeList}">
+                <td th:text="${count.count+4*employeeList.number}"></td>
                 <td th:text="${row.employeeName}"></td>
                 <td th:text="${row.employeeDayOfBirth}"></td>
                 <td th:text="${row.employeeIdCard}"></td>
@@ -253,9 +256,163 @@
             Create Employee
         </a>
     </div>
-
-
 </div>
+
+<!--Model them moi dang sua-->
+
+<!--<form th:action="@{/employee/save}" method="post" th:object="${employeeCreate}">-->
+<!--    <div class="modal fade" id="exampleModalCreate" tabindex="-1" aria-labelledby="exampleModalLabel"-->
+<!--         aria-hidden="true">-->
+<!--        <div class="modal-dialog">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title" id="exampleModalLabelCreate">Create New Employee</h5>-->
+<!--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                </div>-->
+<!--                <div class="modal-body" style="display: grid">-->
+<!--                    <table>-->
+<!--                        <tr>-->
+<!--                            <td>-->
+<!--                                <div class="input-group flex-nowrap">-->
+<!--                                    <span class="input-group-text">Name</span>-->
+<!--                                    <input type="text" class="form-control" required th:field="*{employeeName}"-->
+<!--                                           placeholder="Enter Name Employee">-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+
+<!--                        <tr>-->
+<!--                            <td>-->
+<!--                                <div class="input-group flex-nowrap">-->
+<!--                                    <span class="input-group-text">Date Of Birth</span>-->
+<!--                                    <input type="date" class="form-control" required th:field="*{employeeDayOfBirth}"-->
+<!--                                           placeholder="Enter Date Of Birth Employee">-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+
+<!--                        <tr>-->
+<!--                            <td>-->
+<!--                                <div class="input-group flex-nowrap">-->
+<!--                                    <span class="input-group-text">Id Card</span>-->
+<!--                                    <input type="text" class="form-control" required th:field="*{employeeIdCard}"-->
+<!--                                           placeholder="Enter Id Card Employee">-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+
+<!--                        <tr>-->
+<!--                            <td>-->
+<!--                                <div class="input-group flex-nowrap">-->
+<!--                                    <span class="input-group-text">Salary</span>-->
+<!--                                    <input type="text" class="form-control" required th:field="*{employeeSalary}"-->
+<!--                                           placeholder="Enter Salary Employee">-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+
+<!--                        <tr>-->
+<!--                            <td>-->
+<!--                                <div class="input-group flex-nowrap">-->
+<!--                                    <span class="input-group-text">Phone</span>-->
+<!--                                    <input type="text" class="form-control" required th:field="*{employeePhoneNumber}"-->
+<!--                                           placeholder="Enter Phone Employee">-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+
+<!--                        <tr>-->
+<!--                            <td>-->
+<!--                                <div class="input-group flex-nowrap">-->
+<!--                                    <span class="input-group-text">Email</span>-->
+<!--                                    <input type="text" class="form-control" required th:field="*{employeeEmail}"-->
+<!--                                           placeholder="Enter Email Employee">-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+
+<!--                        <tr>-->
+<!--                            <td>-->
+<!--                                <div class="input-group flex-nowrap">-->
+<!--                                    <span class="input-group-text">Address</span>-->
+<!--                                    <input type="text" class="form-control" required th:field="*{employeeAddress}"-->
+<!--                                           placeholder="Enter Address Employee">-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+
+<!--                        <tr>-->
+<!--                            <td>-->
+<!--                                <div class="input-group flex-nowrap">-->
+<!--                                    <span class="input-group-text">Position</span>-->
+<!--                                    <label style="width: 100%">-->
+<!--                                        <select class="form-select" th:field="*{position}">-->
+<!--                                            <option th:each="item : ${positions}" th:value="${item.positionId}"-->
+<!--                                                    th:text="${item.positionName}"></option>-->
+<!--                                        </select>-->
+<!--                                    </label>-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+
+<!--                        <tr>-->
+<!--                            <td>-->
+<!--                                <div class="input-group flex-nowrap">-->
+<!--                                    <span class="input-group-text">Education Degree</span>-->
+<!--                                    <label style="width: 100%">-->
+<!--                                        <select class="form-select" th:field="*{educationDegree}">-->
+<!--                                            <option th:each="item : ${educationDegrees}" th:value="${item.educationDegreeId}"-->
+<!--                                                    th:text="${item.educationDegreeName}"></option>-->
+<!--                                        </select>-->
+<!--                                    </label>-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+
+<!--                        <tr>-->
+<!--                            <td>-->
+<!--                                <div class="input-group flex-nowrap">-->
+<!--                                    <span class="input-group-text">Division</span>-->
+<!--                                    <label style="width: 100%">-->
+<!--                                        <select class="form-select" th:field="*{division}">-->
+<!--                                            <option th:each="item : ${divisions}" th:value="${item.divisionId}"-->
+<!--                                                    th:text="${item.divisionName}"></option>-->
+<!--                                        </select>-->
+<!--                                    </label>-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+
+
+<!--                        <tr>-->
+<!--                            <td>-->
+<!--                                <div class="mb-3">-->
+<!--                                    <label class="form-label">UserName</label>-->
+<!--                                    <input type="text" class="form-control" th:field="*{userName}"/>-->
+<!--                                    <p style="color:red" th:if="${#fields.hasErrors('userName')}"th:errors="*{userName}"></p>-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+
+<!--                    </table>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <button type="button" class="btn" data-bs-dismiss="modal">-->
+<!--                        <label >Cancel</label>-->
+
+<!--                    </button>-->
+<!--                    <button type="submit" class="btn" value="Create">-->
+<!--                        <label >0k</label>-->
+
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</form>-->
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>

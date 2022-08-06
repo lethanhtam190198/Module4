@@ -53,6 +53,14 @@ public class EmployeeController {
         model.addAttribute("name", name.orElse(""));
         model.addAttribute("employeeList",  employeeService.searchByName(name.orElse(""),position,pageable));
         model.addAttribute("position",position);
+
+
+        model.addAttribute("employeeCreate", new Employee());
+        model.addAttribute("employeeEdit", new Employee());
+        model.addAttribute("positions", positionService.findAll());
+        model.addAttribute("educationDegrees", educationDegreeService.findAll());
+        model.addAttribute("divisions", divisionService.findAll());
+
         return "employee/employeeList";
     }
 
