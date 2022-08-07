@@ -1,37 +1,27 @@
-package com.example.casestudy.model.contract;
+package com.example.casestudy.dto;
 
-import com.example.casestudy.model.facility.Facility;
 import com.example.casestudy.model.customer.Customer;
 import com.example.casestudy.model.employee.Employee;
+import com.example.casestudy.model.facility.Facility;
 
-import javax.persistence.*;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
-@Entity
-public class Contract {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TotalMoneyDto {
     private int contractId;
     private Date contractStartDay;
     private Date contractEndDay;
     private double contractDeposit;
-
-    @ManyToOne
-    @JoinColumn(name = "employeeId", referencedColumnName = "employeeId")
     private Employee employee;
-
-    @ManyToOne
-    @JoinColumn(name="customerId",referencedColumnName = "customerId")
     private Customer customer;
-
-    @ManyToOne
-    @JoinColumn(name="facilityId",referencedColumnName = "facilityId")
     private Facility facility;
+    private double total;
 
-    public Contract() {
+    public TotalMoneyDto() {
     }
 
-    public Contract(int contractId, Date contractStartDay, Date contractEndDay, double contractDeposit, Employee employee, Customer customer, Facility facility) {
+    public TotalMoneyDto(int contractId, Date contractStartDay, Date contractEndDay, double contractDeposit, Employee employee, Customer customer, Facility facility, double total) {
         this.contractId = contractId;
         this.contractStartDay = contractStartDay;
         this.contractEndDay = contractEndDay;
@@ -39,10 +29,7 @@ public class Contract {
         this.employee = employee;
         this.customer = customer;
         this.facility = facility;
-    }
-
-    public Contract(int contractId) {
-        this.contractId = contractId;
+        this.total = total;
     }
 
     public int getContractId() {
@@ -99,5 +86,13 @@ public class Contract {
 
     public void setFacility(Facility facility) {
         this.facility = facility;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 }

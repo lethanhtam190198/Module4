@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Title</title>
+    <script th:src="@{/jquery_321/jquery-3.2.1.js}"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -146,87 +147,298 @@
     <div class="body_center_2 container">
         <center>
             <div class="notify">
+                <!--/*@thymesVar id="success" type=""*/-->
                 <div th:if="${success}">
                     <span th:text="${success}"></span>
                 </div>
             </div>
         </center>
-        <table id="product" class="table table-striped">
+        <table id="product" class="table table-success table-striped">
             <thead>
             <tr class="table-info">
                 <th>Id</th>
-                <th>Start Day</th>
-                <th>End Day</th>
-                <th>Deposit</th>
-                <th>Employee</th>
-                <th>Customer</th>
                 <th>Facility</th>
-                <th>Cac dich vu di kem</th>
+                <th>Customer</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Deposit</th>
+                <th>Total</th>
+                <th>Accompanying Services</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="row : ${contractList}">
+            <tr th:each="row : ${totalMoney}">
                 <td th:text="${row.contractId}"></td>
+                <td th:text="${row.facility.getFacilityName()}"></td>
+                <td th:text="${row.customer.getCustomerName()}"></td>
                 <td th:text="${row.contractStartDay}"></td>
                 <td th:text="${row.contractEndDay}"></td>
                 <td th:text="${row.contractDeposit}"></td>
-                <td th:text="${row.employee.employeeName}"></td>
-                <td th:text="${row.customer.customerName}"></td>
-                <td th:text="${row.facility.facilityName}"></td>
+                <td th:text="${row.total}"></td>
                 <td>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                            onclick="infoDelete(this.value)" th:value="${row.contractId}">+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModalContractDetail">
+                        +
                     </button>
+                    <a class="btn btn-primary" th:href="@{/contract/showAttach/{id}(id = ${row.contractId})}">
+                        danh sach di kem
+                    </a>
                 </td>
             </tr>
             </tbody>
         </table>
+    </div>
+</div>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <form method="post" th:action="@{contract/create}">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Contract</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- name trung voi serverlet xoa-->
-                            <input type="text" hidden name="id" id="idDelete">
-                            <span>Bạn có muốn xóa: </span>
-                            <span id="nameDelete"></span>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không Xóa</button>
-                            <button type="submit" class="btn btn-primary">Xóa</button>
-                        </div>
-                    </div>
-                </form>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Attach Facility Name</th>
+                        <th>Cost</th>
+                        <th>Attach Unit</th>
+                        <th>Attach Status</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item:${attachFacilityList}">
+                        <td th:text="${item.getAttachFacilityId()}"></td>
+                        <td th:text="${item.getAttachFacilityName()}"></td>
+                        <td th:text="${item.getAttachFacilityCost()}"></td>
+                        <td th:text="${item.getAttachFacilityUnit()}"></td>
+                        <td th:text="${item.getAttachFacilityStatus()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
-
-        <script>
-            function infoDelete(name) {
-                let arr = name.split(",")
-                document.getElementById("idDelete").value = arr[0];
-                document.getElementById("nameDelete").innerText = arr[1];
-            }
-        </script>
-
-
-        <!--        <div class="body_center_2">-->
-        <!--            <a th:href="@{'/customer/search'(page=${customerList.number - 1},name=${search})}"-->
-        <!--               th:if="${customerList.hasPrevious()}">Previous</a>-->
-        <!--            <span th:text="${customerList.number + 1}"></span>/<span th:text="${customerList.totalPages}"></span>-->
-        <!--            <a th:href="@{'/customer/search'(page=${customerList.number + 1},name=${search})}"-->
-        <!--               th:if="${customerList.hasNext()}">Next</a>-->
-        <!--        </div>-->
     </div>
-
-
 </div>
+
+<!-- Modal Contract Detail-->
+<div class="modal fade" id="exampleModalContractDetail" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabelContractDetail">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--                <input type="text" hidden th:value="${contractId}" id="contractId">-->
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Start Date</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="starDate">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">End Date </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="endDate">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Deposit</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="deposit">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Total</label>
+                    <div class="col-sm-10">
+                        <input type="text" disabled class="form-control" id="total">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Customer Name</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" aria-label="Default select example" id="customerId">
+                            <option th:each="item : ${customerList}" th:text="${item.getCustomerName()}"
+                                    th:value="${item.getCustomerId()}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Service</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" aria-label="Default select example" id="facilityId">
+                            <option th:each="item : ${facilityList}" th:text="${item.getFacilityName()}"
+                                    th:value="${item.getFacilityId()}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Dich vu dinh kem</label>
+                    <div class="col-sm-10">
+                        <button class="btn btn-primary" onclick="btnAttachFacility()">+</button>
+
+                        <table class="table" id="attachFacility">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Attach Facility Name</th>
+                                <th>Cost</th>
+                                <th>Attach Unit</th>
+                                <th>Attach Status</th>
+                                <th>Quantity</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item:${attachFacilityS}">
+                                <td th:text="${item.getAttachFacilityId()}"></td>
+                                <td hidden>
+                                    <input type="text" th:value="${item.getAttachFacilityId()}" name="attachId">
+                                </td>
+                                <td th:text="${item.getAttachFacilityName()}"></td>
+                                <td th:text="${item.getAttachFacilityCost()}"></td>
+                                <td hidden>
+                                    <input type="text" name="facilityCost" th:value="${item.getAttachFacilityCost()}">
+                                </td>
+                                <td th:text="${item.getAttachFacilityUnit()}"></td>
+                                <td th:text="${item.getAttachFacilityStatus()}"></td>
+                                <td>
+                                    <input type="number" class="form-control quantity" name="quantity">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="addContractDetail()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="text" hidden th:value="${flag}" id="flag">
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+
+</body>
+<script>
+    var flag = $("#flag").val();
+    if (flag == 1) {
+        $(document).ready(function () {
+            $("#exampleModal").modal("show");
+        })
+    }
+</script>
+
+<script>
+    document.getElementById("attachFacility").style.display = "none";
+
+    function btnAttachFacility() {
+        document.getElementById("attachFacility").style.display = "block";
+    }
+</script>
+
+<script>
+    $(".quantity").keyup(function () {
+        $("#total").value = null;
+        let facilityIds = $("#facilityId").val();
+        let facilityCost = document.getElementsByName("facilityCost");
+        let quantity = document.getElementsByName("quantity");
+        let newTotalMoney = [];
+        for (let i = 0; i < quantity.length; i++) {
+            if (quantity[i].value > 0) {
+                newTotalMoney.push([quantity[i].value, facilityCost[i].value])
+            }
+        }
+        debugger;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: "http://localhost:8080/contract/totalMoney?facilityId=" + facilityIds,
+            type: "POST",
+            data: JSON.stringify(newTotalMoney),
+            dataType: "json",
+            success: function (data) {
+                document.getElementById("total").value = data;
+            }
+        })
+    })
+
+    function addContractDetail() {
+        let starDate = $("#starDate").val();
+        let endDate = $("#endDate").val();
+        let deposit = $("#deposit").val();
+        let customerId = $("#customerId").val();
+        let facilityId = $("#facilityId").val();
+        let newContract = {
+            startDate: starDate,
+            endDate: endDate,
+            deposit: deposit,
+            customer: {
+                customerId: customerId
+            },
+            facility: {
+                facilityId: facilityId
+            }
+        }
+        debugger;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: "http://localhost:8080/contract/createContract",
+            type: "POST",
+            data: JSON.stringify(newContract),
+            dataType: "json",
+            success: function (data) {
+                addContractDetail(data);
+            }
+        })
+
+        function addContractDetail(cId) {
+            let quantity = document.getElementsByName("quantity");
+            let contractId = cId;
+            let attachId = document.getElementsByName("attachId")
+            let newContractDetail = [];
+            for (let i = 0; i < quantity.length; i++) {
+                if (quantity[i].value > 0) {
+                    newContractDetail.push([quantity[i].value, contractId, attachId[i].value])
+                }
+            }
+
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: "http://localhost:8080/contract/createContractDetail",
+                type: "POST",
+                data: JSON.stringify(newContractDetail),
+                success: function () {
+                    location.reload();
+                }
+            })
+        }
+    }
+</script>
+
 </body>
 </html>

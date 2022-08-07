@@ -5,5 +5,7 @@ import com.example.casestudy.model.contract.AttachFacility;
 import java.util.List;
 
 public interface IAttachFacilityService {
-List<AttachFacility> findAll();
+    List<AttachFacility> findAll(int id);
+
+    List<AttachFacility> findAllAttach();
 }

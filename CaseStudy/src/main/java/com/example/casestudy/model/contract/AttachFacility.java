@@ -25,6 +25,9 @@ public class AttachFacility {
         this.attachFacilityUnit = attachFacilityUnit;
         this.attachFacilityStatus = attachFacilityStatus;
     }
+    public AttachFacility(int attachFacilityId) {
+        this.attachFacilityId = attachFacilityId;
+    }
 
     public int getAttachFacilityId() {
         return attachFacilityId;
