@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-$END$
+
+<div class="body_center_2 container">
+    <form th:action="@{/save}" method="post" th:object="${tradeList} ">
+        <div class="mb-3">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Ma giao dich </label>
+            <input type="text" class="form-control" th:field="*{codeTrade}"/>
+            <p style="color:red" th:if="${#fields.hasErrors('codeTrade')}" th:errors="*{codeTrade}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Ten Khach Hang</label>
+            <select th:field="*{codeCustomer}" class="form-control">
+                <option th:each=" item : ${customerList}" th:value="${item.id}"
+                        th:text="${item.getName()}"></option>
+            </select>
+            <p style="color:red" th:if="${#fields.hasErrors('codeCustomer')}" th:errors="*{codeCustomer}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Ngay giao dich</label>
+            <input type="text" class="form-control" th:field="*{dayTrade}"/>
+            <p style="color:red" th:if="${#fields.hasErrors('dayTrade')}" th:errors="*{dayTrade}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Loai dich vu</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" th:field="*{tradeType}" value="Nha">
+                <label class="form-check-label"> Nha  </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" th:field="*{tradeType}" value="Nha dat">
+                <label class="form-check-label"> Nha dat </label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Don gia</label>
+            <input type="text" class="form-control" th:field="*{price}"/>
+            <p style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Dien tich</label>
+            <input type="text" class="form-control" th:field="*{area}"/>
+            <p style="color:red" th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></p>
+        </div>
+
+        <center>
+            <input type="submit" class="btn btn-outline-primary" value="Create">
+        </center>
+    </form>
+</div>
+
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </html>

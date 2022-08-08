@@ -1,10 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-$END$
+
+
+<div class="container">
+    <div>
+        <a class="navbar-brand btn btn-danger" th:href="@{/trade/create}">
+            Create Customer
+        </a>
+    </div>
+    <table id="product" class="table table-striped">
+        <thead>
+        <tr class="">
+            <th>Ma Giao dich</th>
+            <th>Ten Khach Hang</th>
+            <th>Ngay Giao Dich</th>
+            <th>Loai giao dich</th>
+            <th>Don Gia</th>
+            <th>Dien Tich</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="row : ${tradeList}">
+            <td th:text="${row.codeTrade}"></td>
+            <td th:text="${row.codeCustomer.name}"></td>
+            <td th:text="${row.dayTrade}"></td>
+            <td th:text="${row.tradeType}"></td>
+            <td th:text="${row.price}"></td>
+            <td th:text="${row.area}"></td>
+            <td>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                        th:data-bs-target="'#cus' + ${row.idTrade}">
+                    Chi tiet
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" th:id="cus + ${row.idTrade}" data-bs-backdrop="static"
+                     data-bs-keyboard="false"
+                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                Ma giao dich <span class="text-info" th:text="${row.idTrade}"></span><br>
+                                Loai nha dat <span class="text-info" th:text="${row.tradeType}"></span><br>
+                                Ngay giao dich <span class="text-info" th:text="${row.dayTrade}"></span><br>
+                                Don gia <span class="text-info" th:text="${row.price}"></span><br>
+                                Dien tich <span class="text-info" th:text="${row.area}"></span><br>
+                                Ten khach hang <span class="text-info" th:text="${row.codeCustomer.name}"></span><br>
+                                SDT <span class="text-info" th:text="${row.codeCustomer.phoneNumber}"></span><br>
+                                Email <span class="text-info" th:text="${row.codeCustomer.email}"></span>
+
+                            </div>
+                            <div class="modal-footer">
+                                <a th:href="@{/delete(id=${row.idTrade})}"
+                                   class="btn btn-outline-success">Delete</a>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+
+<!--            <td>-->
+<!--                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"-->
+<!--                        onclick="infoDelete(this.value)" th:value="${row.idTrade}+','+${row.codeCustomer.name}">Delete-->
+<!--                </button>-->
+<!--            </td>-->
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog">-->
+<!--        <form method="post" th:action="@{delete}" t>-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title" id="exampleModalLabel">Xóa </h5>-->
+<!--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    &lt;!&ndash; name trung voi serverlet xoa&ndash;&gt;-->
+<!--                    <input type="text" hidden name="id" id="idDelete">-->
+<!--                    <span>Bạn có muốn xóa: </span>-->
+<!--                    <span id="nameDelete"></span>-->
+
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không Xóa</button>-->
+<!--                    <button type="submit" class="btn btn-primary">Xóa</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    function infoDelete(name) {-->
+<!--        let arr = name.split(",")-->
+<!--        document.getElementById("idDelete").value = arr[0];-->
+<!--        document.getElementById("nameDelete").innerText = arr[1];-->
+<!--    }-->
+<!--</script>-->
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </html>
